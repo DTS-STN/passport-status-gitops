@@ -32,7 +32,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: [ "sh", "-c", "sleep 10" ]
+                command: [ "sleep", "90" ]
           resources:
             requests:
               cpu: 1000m
@@ -44,6 +44,7 @@ spec:
             - name: config
               mountPath: /workspace/BOOT-INF/classes/application-local.yaml
               subPath: application.yaml
+      terminationGracePeriodSeconds: 100
       volumes:
         - name: config
           configMap:
