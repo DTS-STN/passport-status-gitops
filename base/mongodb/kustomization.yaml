@@ -6,5 +6,8 @@ commonLabels:
   app.kubernetes.io/part-of: passport-status
   app.kubernetes.io/managed-by: kustomize
 resources:
+  - mongodb-rolebindings.yaml
+  - mongodb-roles.yaml
+  - mongodb-sas.yaml
   - mongodb-services.yaml
   - mongodb-statefulsets.yaml

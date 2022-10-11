@@ -1,3 +1,7 @@
+#
+# The MongoDB StatefulSet.
+#
+
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -13,6 +17,7 @@ spec:
       labels:
         app.kubernetes.io/name: mongodb
     spec:
+      serviceAccountName: mongodb
       terminationGracePeriodSeconds: 10
       containers:
         - name: mongodb
@@ -30,6 +35,16 @@ spec:
           volumeMounts:
             - name: mongodb
               mountPath: /data/db
+        - name: mongodb-sidecar
+          image: docker.io/cvallance/mongo-k8s-sidecar
+          imagePullPolicy: Always
+          env:
+            - name: KUBE_NAMESPACE
+              value: passport-status
+            - name: MONGO_SIDECAR_POD_LABELS
+              value: app.kubernetes.io/name=mongodb
+            - name: KUBERNETES_MONGO_SERVICE_NAME
+              value: mongodb
   volumeClaimTemplates:
   - metadata:
       name: mongodb

@@ -8,8 +8,4 @@ commonLabels:
 resources:
   - passport-status-api-cms.yaml
   - passport-status-api-deployments.yaml
-#   - passport-status-api-ingresses.yaml
-  - passport-status-api-rolebindings.yaml
-  - passport-status-api-roles.yaml
-  - passport-status-api-sas.yaml
   - passport-status-api-services.yaml
