@@ -12,7 +12,6 @@ spec:
       labels:
         app.kubernetes.io/name: passport-status-api
     spec:
-      serviceAccountName: passport-status-api
       containers:
         - name: passport-status-api
           image: dtsdevcontainers.azurecr.io/passport-status-api
