@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mongodb
+  serviceName: mongodb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mongodb
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mongodb
+          image: docker.io/mongo
+          imagePullPolicy: Always
+          ports:
+            - name: mongodb
+              containerPort: 27017
+          command:
+            - mongod
+            - --bind_ip
+            - 0.0.0.0
+            - --replSet
+            - ReplSet
+          volumeMounts:
+            - name: mongodb
+              mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 1Gi

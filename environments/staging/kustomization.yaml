@@ -15,7 +15,7 @@ images:
 namespace: passport-status
 nameSuffix: -staging
 patchesStrategicMerge:
-  - mongodb-deployments.yaml
+  - mongodb-statefulsets.yaml
   - passport-status-api-cms.yaml
   - passport-status-api-deployments.yaml
 resources:

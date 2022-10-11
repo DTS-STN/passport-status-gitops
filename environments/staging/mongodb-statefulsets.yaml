@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mongodb
+  serviceName: mongodb
+  template:
+    spec:
+      containers:
+        - name: mongodb
+          imagePullPolicy: IfNotPresent
