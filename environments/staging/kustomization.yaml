@@ -11,7 +11,7 @@ images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
     newTag: 0.0.0-e5e8bba0
   - name: docker.io/mongo
-    newTag: 5.0.6
+    newTag: 6.0.1
 namespace: passport-status
 nameSuffix: -staging
 patchesStrategicMerge:
