@@ -5,24 +5,21 @@ metadata:
 data:
   application.yaml: |-
     application:
-      authentication:
-        oauth:
-          client-id: de3625ec-c6e6-46a6-b761-7b1039ab546a
-          tenant-id: 9ed55846-8a81-4246-acd8-b1a01abfc0d1
       database-initializer:
         run-on-startup: true
       request-logging-filter:
         enabled: true
       security:
-        content-security-policy: >-
-          default-src 'self';
-          connect-src 'self' login.microsoftonline.com passport-status-api.staging.dev-rhp.dts-stn.com;
-          img-src 'self' data:;
-          script-src 'self' 'sha256-4IiDsMH+GkJlxivIDNfi6qk0O5HPtzyvNwVT3Wt8TIw=';
-        cors.allowed-origins:
-          - http://localhost:3000
-          - http://localhost:8080
-          - https://passport-status-api.staging.dev-rhp.dts-stn.com
+        content-security-policy:
+          default-src: "'self';"
+          connect-src: "'self' login.microsoftonline.com passport-status-api.staging.dev-rhp.dts-stn.com;"
+          img-src: "'self' data:;"
+          script-src: "'self' 'sha256-4IiDsMH+GkJlxivIDNfi6qk0O5HPtzyvNwVT3Wt8TIw=';"
+        cors:
+          allowed-origins:
+            - http://localhost:3000
+            - http://localhost:8080
+            - https://passport-status-api.staging.dev-rhp.dts-stn.com
         oauth:
           client-id: de3625ec-c6e6-46a6-b761-7b1039ab546a
           tenant-id: 9ed55846-8a81-4246-acd8-b1a01abfc0d1
@@ -30,7 +27,6 @@ data:
         servers:
           - description: Staging environment
             url: https://passport-status-api.staging.dev-rhp.dts-stn.com/
-
 
     # logging:
     #   level:
