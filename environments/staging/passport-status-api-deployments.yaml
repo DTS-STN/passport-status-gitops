@@ -11,3 +11,6 @@ spec:
       containers:
         - name: passport-status-api
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: gcnotify-api-key-staging

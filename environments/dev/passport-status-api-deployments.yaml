@@ -13,6 +13,9 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: embedded-mongo
+          envFrom:
+            - secretRef:
+                name: gcnotify-api-key-dev
           # increase resources because of embedded mongo
           resources:
             requests:
