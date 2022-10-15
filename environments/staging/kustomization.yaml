@@ -6,7 +6,6 @@ commonLabels:
   app.kubernetes.io/instance: staging
 bases:
   - ../../base/passport-status-api/
-  - ../../base/postgres/
 images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
     newTag: 0.0.0-cbdd6231
