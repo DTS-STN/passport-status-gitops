@@ -41,3 +41,10 @@ data:
               default-dimensions:
                 stack: nonprod
                 region: canadacentral
+
+    spring:
+      h2:
+        console:
+          enabled: true
+          settings:
+            web-allow-others: true
