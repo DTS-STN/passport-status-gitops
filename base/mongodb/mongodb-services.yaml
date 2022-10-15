@@ -17,3 +17,4 @@ spec:
   clusterIP: None
   selector:
     app.kubernetes.io/name: mongodb
+    app.kubernetes.io/component: database

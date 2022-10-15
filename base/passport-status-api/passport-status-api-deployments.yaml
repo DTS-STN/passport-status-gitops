@@ -2,20 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: passport-status-api
+  labels:
+    app.kubernetes.io/name: passport-status-api
+    app.kubernetes.io/component: api
 spec:
   replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: passport-status-api
+      app.kubernetes.io/component: api
   template:
     metadata:
       labels:
         app.kubernetes.io/name: passport-status-api
+        app.kubernetes.io/component: api
     spec:
       containers:
         - name: passport-status-api
-          image: dtsdevcontainers.azurecr.io/passport-status-api
-          imagePullPolicy: Always
+          image: dtsdevcontainers.azurecr.io/passport-status-api:latest
           ports:
             - name: http
               containerPort: 8080

@@ -8,3 +8,4 @@ spec:
       port: 8080
   selector:
     app.kubernetes.io/name: passport-status-api
+    app.kubernetes.io/component: api
