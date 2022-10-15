@@ -4,6 +4,6 @@ commonLabels:
   app.kubernetes.io/part-of: passport-status
   app.kubernetes.io/managed-by: kustomize
 resources:
-  - passport-status-api-cms.yaml
-  - passport-status-api-deployments.yaml
-  - passport-status-api-services.yaml
+  - configmaps.yaml
+  - deployments.yaml
+  - services.yaml
