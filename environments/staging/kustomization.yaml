@@ -5,17 +5,14 @@ commonLabels:
   # per environment to ensure selectors are applied correctly
   app.kubernetes.io/instance: staging
 bases:
-  - ../../base/mongodb/
   - ../../base/passport-status-api/
+  - ../../base/postgres/
 images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
-    newTag: 0.0.0-24acada9
-  - name: docker.io/mongo
-    newTag: 6.0.1
+    newTag: 0.0.0-cbdd6231
 namespace: passport-status
 nameSuffix: -staging
 patchesStrategicMerge:
-  - mongodb-statefulsets.yaml
   - passport-status-api-configmaps.yaml
   - passport-status-api-deployments.yaml
 resources:

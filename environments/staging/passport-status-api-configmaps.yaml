@@ -41,6 +41,6 @@ data:
                 region: canadacentral
 
     spring:
-      data:
-        mongodb:
-          uri: mongodb://mongodb-staging.passport-status.svc.cluster.local/passport
+      datasource:
+        url: jdbc:postgresql://staging-postgresql-ha-postgresql-headless/passport-status
+        username: passport-status

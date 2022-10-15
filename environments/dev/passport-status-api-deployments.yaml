@@ -11,13 +11,10 @@ spec:
     spec:
       containers:
         - name: passport-status-api
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: embedded-mongo
           envFrom:
             - secretRef:
                 name: passport-status-api-dev
-          # increase resources because of embedded mongo
+          # increase resources because of embedded h2
           resources:
             requests:
               cpu: 2000m

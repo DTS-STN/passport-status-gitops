@@ -18,8 +18,6 @@ data:
           client-id: de3625ec-c6e6-46a6-b761-7b1039ab546a
           tenant-id: 9ed55846-8a81-4246-acd8-b1a01abfc0d1
 
-    # logging:
-    #   level:
-    #     '[org.springframework]': debug
-    #     '[org.springframework.data.auditing.AuditingHandlerSupport]': info
-    #     '[org.springframework.data.mongodb.core.MongoTemplate]': info
+    logging:
+      level:
+        '[ca.gov.dtsstn.passport.api]': trace

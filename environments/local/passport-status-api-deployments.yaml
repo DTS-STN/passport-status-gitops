@@ -6,14 +6,12 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: passport-status-api
+      app.kubernetes.io/component: api
   template:
     spec:
       containers:
         - name: passport-status-api
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: embedded-mongo
-          # increase resources because of embedded mongo
+          # increase resources because of embedded h2
           resources:
             requests:
               cpu: 2000m

@@ -11,6 +11,12 @@ spec:
     spec:
       containers:
         - name: passport-status-api
+          env:
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: staging-postgresql-ha-postgresql
+                  key: postgresql-password
           envFrom:
             - secretRef:
                 name: passport-status-api-staging
