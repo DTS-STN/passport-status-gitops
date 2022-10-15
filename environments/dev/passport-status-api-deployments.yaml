@@ -6,6 +6,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: passport-status-api
+      app.kubernetes.io/component: api
   template:
     spec:
       containers:

@@ -26,8 +26,9 @@ data:
           - description: Development environment
             url: https://passport-status-api.dev.dev-rhp.dts-stn.com/
 
-    # logging:
-    #   level:
+    logging:
+      level:
+        '[ca.gov.dtsstn.passport.api]': debug
     #     '[org.springframework]': debug
     #     '[org.springframework.data.auditing.AuditingHandlerSupport]': info
     #     '[org.springframework.data.mongodb.core.MongoTemplate]': info
