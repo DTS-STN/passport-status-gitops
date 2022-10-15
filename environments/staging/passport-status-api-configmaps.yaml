@@ -42,5 +42,5 @@ data:
 
     spring:
       datasource:
-        url: jdbc:postgresql://staging-postgresql-ha-postgresql-headless/passport-status
+        url: jdbc:postgresql://staging-postgresql-ha-pgpool/passport-status
         username: passport-status
