@@ -16,7 +16,7 @@ spec:
               value: embedded-mongo
           envFrom:
             - secretRef:
-                name: gcnotify-api-key-dev
+                name: passport-status-api-dev
           # increase resources because of embedded mongo
           resources:
             requests:

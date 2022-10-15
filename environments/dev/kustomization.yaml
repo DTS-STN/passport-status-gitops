@@ -9,7 +9,7 @@ bases:
 namespace: passport-status
 nameSuffix: -dev
 patchesStrategicMerge:
-  - passport-status-api-cms.yaml
+  - passport-status-api-configmaps.yaml
   - passport-status-api-deployments.yaml
 resources:
   - passport-status-api-ingresses.yaml

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: passport-status-api
+  name: passport-status-api-cm
 data:
   application.yaml: |-
     application:
@@ -28,11 +28,9 @@ data:
           - description: Staging environment
             url: https://passport-status-api.staging.dev-rhp.dts-stn.com/
 
-    # logging:
-    #   level:
-    #     '[org.springframework]': debug
-    #     '[org.springframework.data.auditing.AuditingHandlerSupport]': info
-    #     '[org.springframework.data.mongodb.core.MongoTemplate]': info
+    logging:
+      level:
+        '[ca.gov.dtsstn.passport.api]': trace
 
     management:
       metrics:

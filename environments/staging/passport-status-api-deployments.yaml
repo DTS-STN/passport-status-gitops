@@ -13,4 +13,4 @@ spec:
         - name: passport-status-api
           envFrom:
             - secretRef:
-                name: gcnotify-api-key-staging
+                name: passport-status-api-staging
