@@ -21,3 +21,10 @@ data:
     logging:
       level:
         '[ca.gov.dtsstn.passport.api]': trace
+
+    spring:
+      activemq:
+        broker-url: tcp://ex-aao-local-hdls-svc:61616
+        embedded:
+          enabled: false
+        mode: NATIVE
