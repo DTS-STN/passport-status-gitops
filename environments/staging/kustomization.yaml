@@ -8,7 +8,7 @@ bases:
   - ../../base/passport-status-api/
 images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
-    newTag: 0.0.0-faf95bdf
+    newTag: 0.0.0-2b0d452c
 namespace: passport-status
 nameSuffix: -staging
 patchesStrategicMerge:
