@@ -39,6 +39,11 @@ data:
                 region: canadacentral
 
     spring:
+      activemq:
+        broker-url: tcp://ex-aao-staging-hdls-svc:61616
+        embedded:
+          enabled: false
+        mode: NATIVE
       datasource:
         url: jdbc:postgresql://staging-postgresql-ha-pgpool/passport-status
         username: passport-status
