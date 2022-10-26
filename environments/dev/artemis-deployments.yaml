@@ -6,3 +6,5 @@ spec:
   deploymentPlan:
     size: 1
     image: placeholder
+    persistenceEnabled: true
+    messageMigration: true
