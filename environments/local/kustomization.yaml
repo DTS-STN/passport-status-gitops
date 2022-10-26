@@ -15,5 +15,5 @@ patchesStrategicMerge:
   - passport-status-api-configmaps.yaml
   - passport-status-api-deployments.yaml
 resources:
-  - passport-status-api-ingresses.yaml
   - artemis-deployments.yaml
+  - passport-status-api-ingresses.yaml
