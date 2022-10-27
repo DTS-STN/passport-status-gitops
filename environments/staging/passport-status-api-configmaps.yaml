@@ -33,9 +33,10 @@ data:
         export:
           dynatrace:
             enabled: true
+            uri: https://dynatrace.dev.admin.dts-stn.com/e/6db719f0-5227-451e-8ce0-015c499518e7/api/v2/metrics/ingest
             v2:
               default-dimensions:
-                stack: nonprod
+                stack: nonprod-staging
                 region: canadacentral
 
     spring:
