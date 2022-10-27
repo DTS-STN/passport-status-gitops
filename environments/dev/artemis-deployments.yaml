@@ -13,3 +13,5 @@ spec:
     podSecurityContext:
       fsGroup: 0
       fsGroupChangePolicy: "OnRootMismatch"
+  console:
+    expose: true
