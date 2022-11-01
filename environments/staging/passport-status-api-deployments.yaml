@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: passport-status-api
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: passport-status-api
