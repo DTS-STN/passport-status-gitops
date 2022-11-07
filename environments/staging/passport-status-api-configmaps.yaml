@@ -6,7 +6,7 @@ data:
   application.yaml: |-
     application:
       database-initializer:
-        generated-statuses-number: 1_000_000
+        generated-statuses-number: 100_000
       request-logging-filter:
         enabled: true
       security:
