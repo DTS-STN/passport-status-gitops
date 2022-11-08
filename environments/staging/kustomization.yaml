@@ -6,14 +6,20 @@ commonLabels:
   app.kubernetes.io/instance: staging
 bases:
   - ../../base/passport-status-api/
+  - ../../base/passport-status-frontend/
 images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
     newTag: 0.0.0-7e9d95e2
+  - name: dtsdevcontainers.azurecr.io/passport-status
+    newTag: TC-102-dev
 namespace: passport-status
 nameSuffix: -staging
 patchesStrategicMerge:
   - passport-status-api-configmaps.yaml
   - passport-status-api-deployments.yaml
+  - passport-status-frontend-configmaps.yaml
+  - passport-status-frontend-deployments.yaml
 resources:
   - artemis-deployments.yaml
   - passport-status-api-ingresses.yaml
+  - passport-status-frontend-ingresses.yaml
