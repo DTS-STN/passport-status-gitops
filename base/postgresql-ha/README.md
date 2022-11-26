@@ -15,6 +15,11 @@ helm fetch bitnami/postgresql-ha --version {chart-version}
 To install: (be sure to update kubeconfig file)
 
 ``` sh
+ENVIRONMENT=test
+ADMIN_PASSWORD=$(openssl rand -base64 12)
+POSTGRESQL_PASSWORD=$(openssl rand -base64 12)
+REPMGR_PASSWORD=$(openssl rand -base64 12)
+
 helm --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-status \
     upgrade --install \
     --set persistence.size=64Gi \
@@ -24,7 +29,8 @@ helm --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-statu
     --set postgresql.database=passport-status \
     --set postgresql.password=$POSTGRESQL_PASSWORD \
     --set postgresql.repmgrPassword=$REPMGR_PASSWORD \
-    staging ./postgresql-ha-10.0.1
+    $ENVIRONMENT ./postgresql-ha-10.0.1
+
 ```
 
 To get existing passwords: (be sure to update kubeconfig file and secret names)

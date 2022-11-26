@@ -12,13 +12,14 @@ data:
       security:
         content-security-policy:
           default-src: "'self'"
-          connect-src: "'self' login.microsoftonline.com passport-status-api.staging.dev-rhp.dts-stn.com"
+          connect-src: "'self' login.microsoftonline.com passport-status-api.test.dev-rhp.dts-stn.com"
           img-src: "'self' data:"
           script-src: "'self' 'sha256-4IiDsMH+GkJlxivIDNfi6qk0O5HPtzyvNwVT3Wt8TIw='"
         cors:
           allowed-origins:
             - http://localhost:3000
             - http://localhost:8080
+            - http://localhost:8181
         oauth:
           client-id: 2652573b-9b11-4f03-a3b8-eb38f1b00312
           tenant-id: 9ed55846-8a81-4246-acd8-b1a01abfc0d1
@@ -35,15 +36,15 @@ data:
             uri: https://dynatrace.dev.admin.dts-stn.com/e/6db719f0-5227-451e-8ce0-015c499518e7/api/v2/metrics/ingest
             v2:
               default-dimensions:
-                stack: nonprod-staging
+                stack: nonprod-test
                 region: canadacentral
 
     spring:
       activemq:
-        broker-url: tcp://ex-aao-staging-hdls-svc:61616
+        broker-url: tcp://passport-status-amq-test-hdls-svc:61616
         embedded:
           enabled: false
         mode: NATIVE
       datasource:
-        url: jdbc:postgresql://staging-postgresql-ha-pgpool/passport-status
+        url: jdbc:postgresql://test-postgresql-ha-pgpool/passport-status
         username: passport-status

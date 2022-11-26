@@ -1,0 +1,15 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemis
+metadata:
+  name: passport-status-amq
+spec:
+  deploymentPlan:
+    size: 1
+    image: placeholder
+    persistenceEnabled: true
+    messageMigration: true
+    # Issue: Artemis in kubernetes cluster doesn't start with persistance enabled equal to true
+    # https://github.com/artemiscloud/activemq-artemis-operator/issues/187
+    podSecurityContext:
+      fsGroup: 0
+      fsGroupChangePolicy: "OnRootMismatch"
