@@ -40,7 +40,7 @@ data:
 
     spring:
       activemq:
-        broker-url: tcp://ex-aao-staging-hdls-svc:61616
+        broker-url: tcp://passport-status-amq-staging-hdls-svc:61616
         embedded:
           enabled: false
         mode: NATIVE
