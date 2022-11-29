@@ -1,7 +1,7 @@
 apiVersion: broker.amq.io/v1beta1
 kind: ActiveMQArtemis
 metadata:
-  name: ex-aao
+  name: passport-status-amq
 spec:
   deploymentPlan:
     size: 1

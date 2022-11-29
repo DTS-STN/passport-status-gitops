@@ -16,9 +16,10 @@ To install: (be sure to update kubeconfig file)
 
 ``` sh
 ENVIRONMENT=test
-ADMIN_PASSWORD=$(openssl rand -base64 12)
-POSTGRESQL_PASSWORD=$(openssl rand -base64 12)
-REPMGR_PASSWORD=$(openssl rand -base64 12)
+
+# During initial creation, passwords may be omitted to allow for auto-random password creation (10 length).
+# Alternatively, you can pre-set your own passwords.
+# If upgrading, fetch existing password (see bellow)
 
 helm --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-status \
     upgrade --install \

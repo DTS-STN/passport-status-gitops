@@ -14,7 +14,7 @@ Currently each environment deploys a new PGSQL server.
 
 [Helm chart for PostgreSQL HA](./base/postgresql-ha/README.md)
 
-Add passwords created during the setup to HashiCorp Vault
+For reference, manually add passwords created during the setup to HashiCorp Vault
 
 - PassportStatusAPI/env/{env}
   - Pgpool Admin Password
