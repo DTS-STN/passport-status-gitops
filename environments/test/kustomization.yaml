@@ -11,7 +11,7 @@ images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
     newTag: 0.0.0-37fc617b
   - name: dtsdevcontainers.azurecr.io/passport-status
-    newTag: TC-103-dev
+    newTag: TC-129-dev
 namespace: passport-status
 nameSuffix: -test
 patchesStrategicMerge:
