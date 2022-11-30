@@ -1,0 +1,12 @@
+
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisAddress
+metadata:
+  name: passport-status-amq-address
+spec:
+  applyToCrNames:
+    - passport-status-amq-dev
+  addressName: passport-statuses-address
+  queueName: passport-statuses
+  routingType: anycast
+  removeFromBrokerOnDelete: true

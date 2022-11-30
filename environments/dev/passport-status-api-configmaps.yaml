@@ -39,11 +39,12 @@ data:
                 region: canadacentral
 
     spring:
-      activemq:
+      artemis:
         broker-url: tcp://passport-status-amq-dev-hdls-svc:61616
         embedded:
           enabled: false
         mode: NATIVE
+        user: passport-status-dev
       h2:
         console:
           enabled: true

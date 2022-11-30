@@ -11,6 +11,12 @@ spec:
     spec:
       containers:
         - name: passport-status-api
+          env:
+            - name: SPRING_ARTEMIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: security-properties-prop-module-passport-status-amq-security-dev
+                  key: passport-status-dev
           envFrom:
             - secretRef:
                 name: passport-status-api-dev
