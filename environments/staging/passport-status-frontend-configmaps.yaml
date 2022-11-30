@@ -5,4 +5,4 @@ metadata:
 data:
   .env: |-
     # Base URI for the Passport Status API
-    PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-staging.passport-status.svc.cluster.local:8080
+    PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-staging.passport-status-preprod.svc.cluster.local:8080
