@@ -40,11 +40,12 @@ data:
                 region: canadacentral
 
     spring:
-      activemq:
+      artemis:
         broker-url: tcp://passport-status-amq-test-hdls-svc:61616
         embedded:
           enabled: false
         mode: NATIVE
+        user: passport-status-test
       datasource:
         url: jdbc:postgresql://test-postgresql-ha-pgpool/passport-status
         username: passport-status

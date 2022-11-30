@@ -1,0 +1,30 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisSecurity
+metadata:
+  name: passport-status-amq-security
+spec:
+  applyToCrNames:
+    - passport-status-amq-test
+  loginModules:
+    propertiesLoginModules:
+    - name: prop-module-passport-status-amq-security-test
+      users:
+      - name: passport-status-test
+        roles:
+        - passport-status-user
+  securityDomains:
+    brokerDomain:
+      name: activemq
+      loginModules:
+      - name: prop-module-passport-status-amq-security-test
+        flag: sufficient
+  securitySettings:
+    broker:
+      - match: passport-statuses
+        permissions:
+          - operationType: consume
+            roles:
+              - passport-status-user
+          - operationType: send
+            roles:
+              - passport-status-user

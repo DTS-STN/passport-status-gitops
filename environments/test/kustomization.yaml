@@ -20,6 +20,8 @@ patchesStrategicMerge:
   - passport-status-frontend-configmaps.yaml
   - passport-status-frontend-deployments.yaml
 resources:
+  - artemis-address-deployments.yaml
   - artemis-deployments.yaml
+  - artemis-security-deployments.yaml
   - passport-status-api-ingresses.yaml
   - passport-status-frontend-ingresses.yaml
