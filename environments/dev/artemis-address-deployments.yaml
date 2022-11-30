@@ -6,7 +6,9 @@ metadata:
 spec:
   applyToCrNames:
     - passport-status-amq-dev
-  addressName: passport-statuses-address
+  addressName: passport-status-address
+  queueConfiguration:
+    autoCreateAddress: true
   queueName: passport-statuses
-  routingType: anycast
   removeFromBrokerOnDelete: true
+  routingType: anycast

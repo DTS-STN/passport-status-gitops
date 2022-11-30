@@ -20,7 +20,7 @@ spec:
         flag: sufficient
   securitySettings:
     broker:
-      - match: passport-statuses
+      - match: passport-status-address.passport-statuses
         permissions:
           - operationType: consume
             roles:
