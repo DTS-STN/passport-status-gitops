@@ -18,10 +18,17 @@ spec:
       loginModules:
       - name: prop-module-passport-status-amq-security-dev
         flag: sufficient
+  # ref.: https://activemq.apache.org/components/artemis/documentation/latest/security.html#role-based-security-for-addresses
   securitySettings:
     broker:
-      - match: passport-status-address.passport-statuses
+      - match: passport-statuses.#
         permissions:
+          - operationType: createAddress
+            roles:
+              - passport-status-user
+          - operationType: createDurableQueue
+            roles:
+              - passport-status-user
           - operationType: consume
             roles:
               - passport-status-user
