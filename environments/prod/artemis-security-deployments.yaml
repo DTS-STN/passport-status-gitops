@@ -1,0 +1,37 @@
+apiVersion: broker.amq.io/v1beta1
+kind: ActiveMQArtemisSecurity
+metadata:
+  name: passport-status-amq-security
+spec:
+  applyToCrNames:
+    - passport-status-amq-prod
+  loginModules:
+    propertiesLoginModules:
+    - name: prop-module-passport-status-amq-security-prod
+      users:
+      - name: passport-status-prod
+        roles:
+        - passport-status-user
+  securityDomains:
+    brokerDomain:
+      name: activemq
+      loginModules:
+      - name: prop-module-passport-status-amq-security-prod
+        flag: sufficient
+  # ref.: https://activemq.apache.org/components/artemis/documentation/latest/security.html#role-based-security-for-addresses
+  securitySettings:
+    broker:
+      - match: passport-statuses.#
+        permissions:
+          - operationType: createAddress
+            roles:
+              - passport-status-user
+          - operationType: createDurableQueue
+            roles:
+              - passport-status-user
+          - operationType: consume
+            roles:
+              - passport-status-user
+          - operationType: send
+            roles:
+              - passport-status-user
