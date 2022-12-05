@@ -1,9 +1,28 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 commonLabels:
-  app.kubernetes.io/instance: passport-status-api-prod
-  app.kubernetes.io/version: 0.0.0
+  # commonLabels must have at least one unique label
+  # per environment to ensure selectors are applied correctly
+  app.kubernetes.io/instance: prod
+bases:
+  - ../../base/passport-status-api/
+  - ../../base/passport-status-frontend/
 images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
-    newTag: 0.0.0
+    newName: dtsprodcontainers.azurecr.io/passport-status-api
+    newTag: 0.0.0-af5d8fe4
+  - name: dtsdevcontainers.azurecr.io/passport-status
+    newName: dtsprodcontainers.azurecr.io/passport-status
+    newTag: TC-129-dev
 namespace: passport-status
+nameSuffix: -prod
+patchesStrategicMerge:
+  - passport-status-api-configmaps.yaml
+  - passport-status-api-deployments.yaml
+  - passport-status-frontend-configmaps.yaml
+  - passport-status-frontend-deployments.yaml
+resources:
+  - artemis-deployments.yaml
+  - artemis-security-deployments.yaml
+  - passport-status-api-ingresses.yaml
+  - passport-status-frontend-ingresses.yaml

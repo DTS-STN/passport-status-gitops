@@ -4,7 +4,7 @@ metadata:
   name: passport-status-amq
 spec:
   deploymentPlan:
-    size: 1
+    size: 3
     image: placeholder
     messageMigration: true
     persistenceEnabled: true
@@ -30,17 +30,17 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: passport-status-amq-wconsj-0.staging.dev-rhp-private.dts-stn.com
+    - host: passport-status-amq-wconsj-0.prod-rhp-private.dts-stn.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: passport-status-amq-staging-wconsj-0-svc
+                name: passport-status-amq-prod-wconsj-0-svc
                 port:
                   name: wconsj-0
   tls:
     - hosts:
-        - passport-status-amq-wconsj-0.staging.dev-rhp-private.dts-stn.com
-      secretName: internal-passport-status-amq-wconsj-0-staging
+        - passport-status-amq-wconsj-0.prod-rhp-private.dts-stn.com
+      secretName: internal-passport-status-amq-wconsj-0-prod
