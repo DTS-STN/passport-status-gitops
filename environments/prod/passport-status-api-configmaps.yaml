@@ -20,6 +20,9 @@ data:
           tenant-id: 9ed55846-8a81-4246-acd8-b1a01abfc0d1
       gcnotify:
         file-number-notification:
+          english-template-id: aa84bb2c-8f94-4de9-8f30-8e54d0d42905
+          french-template-id: ee9ed87e-5cff-4894-aa7d-af12904c0944
+          # TODO: remove after en/fr template are in place
           template-id: 374ab294-40f2-4294-b11a-00681e267c25
 
     logging:
