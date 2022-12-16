@@ -24,7 +24,7 @@ spec:
   tls:
     - hosts:
         - passport-status-api.nightly.dev-rhp.dts-stn.com
-      secretName: external-passport-status-api-nightly
+      secretName: external-passport-status-api-dev
 
 ---
 
@@ -51,4 +51,4 @@ spec:
   tls:
     - hosts:
         - passport-status-api.nightly.dev-rhp-private.dts-stn.com
-      secretName: internal-passport-status-api-nightly
+      secretName: internal-passport-status-api-dev

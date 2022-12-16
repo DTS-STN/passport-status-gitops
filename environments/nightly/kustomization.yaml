@@ -3,24 +3,15 @@ kind: Kustomization
 commonLabels:
   # commonLabels must have at least one unique label
   # per environment to ensure selectors are applied correctly
-  app.kubernetes.io/instance: nightly
+  app.kubernetes.io/instance: dev
 bases:
   - ../../base/passport-status-api/
-  - ../../base/passport-status-frontend/
-images:
-  - name: dtsdevcontainers.azurecr.io/passport-status-api
-    newTag: 0.0.0-a24b5e5f
-  - name: dtsdevcontainers.azurecr.io/passport-status
-    newTag: TC-170-dev
-namespace: passport-status-preprod
-nameSuffix: -nightly
+namespace: passport-status
+nameSuffix: -dev
 patchesStrategicMerge:
   - passport-status-api-configmaps.yaml
   - passport-status-api-deployments.yaml
-  - passport-status-frontend-configmaps.yaml
-  - passport-status-frontend-deployments.yaml
 resources:
   - artemis-deployments.yaml
   - artemis-security-deployments.yaml
   - passport-status-api-ingresses.yaml
-  - passport-status-frontend-ingresses.yaml

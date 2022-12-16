@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: passport-status-api
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: passport-status-api
@@ -16,18 +15,16 @@ spec:
             - name: SPRING_ARTEMIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: security-properties-prop-module-passport-status-amq-security-nightly
-                  key: passport-status-nightly
-            - name: SPRING_DATASOURCE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: nightly-postgresql-ha-postgresql
-                  key: postgresql-password
+                  name: security-properties-prop-module-passport-status-amq-security-dev
+                  key: passport-status-dev
           envFrom:
             - secretRef:
-                name: passport-status-api-nightly
-          # increase resources to accommodate database seeding
+                name: passport-status-api-dev
+          # increase resources because of embedded h2
           resources:
+            requests:
+              cpu: 2000m
+              memory: 512Mi
             limits:
               cpu: 4000m
-              memory: 4096Mi
+              memory: 2048Mi
