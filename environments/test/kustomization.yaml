@@ -9,7 +9,7 @@ bases:
   - ../../base/passport-status-frontend/
 images:
   - name: dtsdevcontainers.azurecr.io/passport-status-api
-    newTag: 0.0.0-a24b5e5f
+    newTag: 0.0.0-333b20b1
   - name: dtsdevcontainers.azurecr.io/passport-status
     newTag: TC-170-dev
 namespace: passport-status
