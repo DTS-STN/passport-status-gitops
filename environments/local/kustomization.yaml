@@ -7,7 +7,7 @@ commonLabels:
 bases:
   - ../../base/passport-status-api/
 images:
-  - name: dtsdevcontainers.azurecr.io/passport-status-api
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newName: registry.localtest.me/passport-status-api
 namespace: passport-status
 nameSuffix: -local
