@@ -6,13 +6,13 @@ data:
   application.yaml: |-
     application:
       database-initializer:
-        run-on-startup: false
+        run-on-startup: true
       request-logging-filter:
         enabled: true
       security:
         content-security-policy:
           default-src: "'self'"
-          connect-src: "'self' login.microsoftonline.com passport-status-api.nightly.dev-rhp.dts-stn.com"
+          connect-src: "'self' login.microsoftonline.com passport-status-api.staging.dev-rhp.dts-stn.com"
           img-src: "'self' data:"
           script-src: "'self' 'sha256-4IiDsMH+GkJlxivIDNfi6qk0O5HPtzyvNwVT3Wt8TIw='"
         cors:
@@ -35,16 +35,16 @@ data:
           #   uri: https://dynatrace.dev.admin.dts-stn.com/e/6db719f0-5227-451e-8ce0-015c499518e7/api/v2/metrics/ingest
           #   v2:
           #     default-dimensions:
-          #       stack: nonprod-dev
+          #       stack: nonprod-nightly
           #       region: canadacentral
 
     spring:
       artemis:
-        broker-url: tcp://passport-status-amq-dev-hdls-svc:61616
+        broker-url: tcp://passport-status-amq-nightly-hdls-svc:61616
         embedded:
           enabled: false
         mode: NATIVE
-        user: passport-status-dev
+        user: passport-status-nightly
       h2:
         console:
           enabled: true

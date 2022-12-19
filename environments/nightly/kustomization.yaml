@@ -3,11 +3,11 @@ kind: Kustomization
 commonLabels:
   # commonLabels must have at least one unique label
   # per environment to ensure selectors are applied correctly
-  app.kubernetes.io/instance: dev
+  app.kubernetes.io/instance: nightly
 bases:
   - ../../base/passport-status-api/
 namespace: passport-status
-nameSuffix: -dev
+nameSuffix: -nightly
 patchesStrategicMerge:
   - passport-status-api-configmaps.yaml
   - passport-status-api-deployments.yaml
