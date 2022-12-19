@@ -22,7 +22,10 @@ data:
         oauth:
           client-id: 2652573b-9b11-4f03-a3b8-eb38f1b00312
           tenant-id: 9ed55846-8a81-4246-acd8-b1a01abfc0d1
-
+      gcnotify:
+        file-number-notification:
+          english-template-id: 82eee16d-a836-4521-9314-441b7628e235
+          french-template-id: 6d294617-7eb6-47ca-adb3-bd3b19f6bdc3
     logging:
       level:
         '[ca.gov.dtsstn.passport.api]': trace
@@ -30,13 +33,13 @@ data:
     management:
       metrics:
         export:
-          # dynatrace:
-          #   enabled: true
-          #   uri: https://dynatrace.dev.admin.dts-stn.com/e/6db719f0-5227-451e-8ce0-015c499518e7/api/v2/metrics/ingest
-          #   v2:
-          #     default-dimensions:
-          #       stack: nonprod-nightly
-          #       region: canadacentral
+          dynatrace:
+            enabled: true
+            uri: https://dynatrace.dev.admin.dts-stn.com/e/6db719f0-5227-451e-8ce0-015c499518e7/api/v2/metrics/ingest
+            v2:
+              default-dimensions:
+                stack: nonprod-nightly
+                region: canadacentral
 
     spring:
       artemis:
