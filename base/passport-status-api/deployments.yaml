@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: passport-status-api
-          image: dtsdevcontainers.azurecr.io/passport-status-api:latest
+          image: dtsrhpdevscedacr.azurecr.io/passport-status-api:latest
           ports:
             - name: http
               containerPort: 8080
