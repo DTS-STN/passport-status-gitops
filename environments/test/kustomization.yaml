@@ -8,9 +8,9 @@ bases:
   - ../../base/passport-status-api/
   - ../../base/passport-status-frontend/
 images:
-  - name: dtsdevcontainers.azurecr.io/passport-status-api
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newTag: 0.0.0-333b20b1
-  - name: dtsdevcontainers.azurecr.io/passport-status
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status
     newTag: 20221216-173-f51ebf24
 namespace: passport-status
 nameSuffix: -test
