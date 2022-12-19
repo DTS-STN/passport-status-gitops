@@ -6,13 +6,13 @@ data:
   application.yaml: |-
     application:
       database-initializer:
-        run-on-startup: true
+        run-on-startup: false
       request-logging-filter:
         enabled: true
       security:
         content-security-policy:
           default-src: "'self'"
-          connect-src: "'self' login.microsoftonline.com passport-status-api.staging.dev-rhp.dts-stn.com"
+          connect-src: "'self' login.microsoftonline.com passport-status-api.nightly.dev-rhp.dts-stn.com"
           img-src: "'self' data:"
           script-src: "'self' 'sha256-4IiDsMH+GkJlxivIDNfi6qk0O5HPtzyvNwVT3Wt8TIw='"
         cors:
