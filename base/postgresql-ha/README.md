@@ -21,7 +21,7 @@ ENVIRONMENT=test
 # Alternatively, you can pre-set your own passwords.
 # If upgrading, fetch existing password (see bellow)
 
-helm --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-status \
+helm --kubeconfig ~/.kube/dts-dev-sced-rhp-spoke-aks.yaml --namespace passport-status \
     upgrade --install \
     --set persistence.size=64Gi \
     --set pgpool.adminPassword=$ADMIN_PASSWORD \
@@ -37,7 +37,7 @@ helm --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-statu
 To get existing passwords: (be sure to update kubeconfig file and secret names)
 
 ``` sh
-ADMIN_PASSWORD=$(kubectl --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-status get secret staging-postgresql-ha-pgpool -o jsonpath="{.data.admin-password}" | base64 -d)
-POSTGRESQL_PASSWORD=$(kubectl --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-status get secret staging-postgresql-ha-postgresql -o jsonpath="{.data.postgresql-password}" | base64 -d)
-REPMGR_PASSWORD=$(kubectl --kubeconfig ~/.kube/dts-dev-rhp-akscluster.yaml --namespace passport-status get secret staging-postgresql-ha-postgresql -o jsonpath="{.data.repmgr-password}" | base64 -d)
+ADMIN_PASSWORD=$(kubectl --kubeconfig ~/.kube/dts-dev-sced-rhp-spoke-aks.yaml --namespace passport-status get secret staging-postgresql-ha-pgpool -o jsonpath="{.data.admin-password}" | base64 -d)
+POSTGRESQL_PASSWORD=$(kubectl --kubeconfig ~/.kube/dts-dev-sced-rhp-spoke-aks.yaml --namespace passport-status get secret staging-postgresql-ha-postgresql -o jsonpath="{.data.postgresql-password}" | base64 -d)
+REPMGR_PASSWORD=$(kubectl --kubeconfig ~/.kube/dts-dev-sced-rhp-spoke-aks.yaml --namespace passport-status get secret staging-postgresql-ha-postgresql -o jsonpath="{.data.repmgr-password}" | base64 -d)
 ```
