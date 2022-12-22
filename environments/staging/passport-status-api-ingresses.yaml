@@ -1,17 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: external-passport-status-api
+  name: passport-status-api
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/ingress.class: azure/application-gateway
-    # see https://azure.github.io/application-gateway-kubernetes-ingress/annotations/
-    appgw.ingress.kubernetes.io/connection-draining: 'true'
-    appgw.ingress.kubernetes.io/connection-draining-timeout: '30'
-    appgw.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
+  ingressClassName: nginx
   rules:
-    - host: passport-status-api.staging.dev-rhp.dts-stn.com
+    - host: passport-status-api-staging.dev-dp-internal.dts-stn.com
       http:
         paths:
           - path: /
@@ -21,24 +17,19 @@ spec:
                 name: passport-status-api
                 port:
                   name: http
-  tls:
-    - hosts:
-        - passport-status-api.staging.dev-rhp.dts-stn.com
-      secretName: external-passport-status-api-staging
 
 ---
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: internal-passport-status-api
+  name: public-passport-status-api
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
   ingressClassName: nginx
   rules:
-    - host: passport-status-api.staging.dev-rhp-private.dts-stn.com
+    - host: passport-status-api-staging.dev-dp.dts-stn.com
       http:
         paths:
           - path: /
@@ -48,7 +39,3 @@ spec:
                 name: passport-status-api
                 port:
                   name: http
-  tls:
-    - hosts:
-        - passport-status-api.staging.dev-rhp-private.dts-stn.com
-      secretName: internal-passport-status-api-staging
