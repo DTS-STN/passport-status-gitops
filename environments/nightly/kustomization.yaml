@@ -6,12 +6,21 @@ commonLabels:
   app.kubernetes.io/instance: nightly
 bases:
   - ../../base/passport-status-api/
+  - ../../base/passport-status-frontend/
+images:
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
+    newTag: latest
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status
+    newTag: latest
 namespace: passport-status
 nameSuffix: -nightly
 patchesStrategicMerge:
   - passport-status-api-configmaps.yaml
   - passport-status-api-deployments.yaml
+  - passport-status-frontend-configmaps.yaml
+  - passport-status-frontend-deployments.yaml
 resources:
   - artemis-deployments.yaml
   - artemis-security-deployments.yaml
   - passport-status-api-ingresses.yaml
+  - passport-status-frontend-ingresses.yaml
