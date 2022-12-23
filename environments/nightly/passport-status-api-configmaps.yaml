@@ -6,13 +6,13 @@ data:
   application.yaml: |-
     application:
       database-initializer:
-        run-on-startup: true
+          run-on-startup: true
       request-logging-filter:
         enabled: true
       security:
         content-security-policy:
           default-src: "'self'"
-          connect-src: "'self' login.microsoftonline.com passport-status-api.staging.dev-rhp.dts-stn.com"
+          connect-src: "'self' login.microsoftonline.com passport-status-api.nightly.dev-rhp.dts-stn.com"
           img-src: "'self' data:"
           script-src: "'self' 'sha256-4IiDsMH+GkJlxivIDNfi6qk0O5HPtzyvNwVT3Wt8TIw='"
         cors:
@@ -26,9 +26,10 @@ data:
         file-number-notification:
           english-template-id: 82eee16d-a836-4521-9314-441b7628e235
           french-template-id: 6d294617-7eb6-47ca-adb3-bd3b19f6bdc3
+
     logging:
       level:
-        '[ca.gov.dtsstn.passport.api]': trace
+        '[ca.gov.dtsstn.passport.api]': info
 
     management:
       metrics:
@@ -48,8 +49,6 @@ data:
           enabled: false
         mode: NATIVE
         user: passport-status-nightly
-      h2:
-        console:
-          enabled: true
-          settings:
-            web-allow-others: true
+      datasource:
+        url: jdbc:postgresql://nightly-postgresql-ha-pgpool/passport-status
+        username: passport-status

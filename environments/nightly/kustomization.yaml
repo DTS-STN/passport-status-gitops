@@ -9,9 +9,9 @@ bases:
   - ../../base/passport-status-frontend/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
-    newTag: latest
+    newTag: nightly
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newTag: latest
+    newTag: nightly
 namespace: passport-status
 nameSuffix: -nightly
 patchesStrategicMerge:
