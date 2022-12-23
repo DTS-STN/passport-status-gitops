@@ -6,3 +6,5 @@ data:
   .env: |-
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-test.passport-status.svc.cluster.local:8080
+    # Provide environment to front end application to determine whether or not to show test site banner
+    NEXT_PUBLIC_ENVIRONMENT=test
