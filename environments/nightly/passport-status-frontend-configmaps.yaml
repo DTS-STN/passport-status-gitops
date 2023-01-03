@@ -6,3 +6,4 @@ data:
   .env: |-
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-nightly.passport-status.svc.cluster.local:8080
+    NEXT_PUBLIC_ENVIRONMENT=nightly
