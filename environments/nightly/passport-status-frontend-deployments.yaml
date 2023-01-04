@@ -12,3 +12,4 @@ spec:
     spec:
       containers:
         - name: passport-status-frontend
+          imagePullPolicy: Always

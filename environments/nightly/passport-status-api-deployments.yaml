@@ -26,6 +26,7 @@ spec:
           envFrom:
             - secretRef:
                 name: passport-status-api-nightly
+          imagePullPolicy: Always
           # increase resources to accommodate database seeding
           resources:
             limits:
