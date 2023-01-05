@@ -39,11 +39,11 @@ spec:
                 command: [ "sleep", "90" ]
           resources:
             requests:
-              cpu: 125m
-              memory: 1024Mi
+              cpu: 1000m
+              memory: 256Mi
             limits:
-              cpu: 250m
-              memory: 2048Mi
+              cpu: 2000m
+              memory: 1024Mi
           volumeMounts:
             - name: config
               mountPath: /workspace/BOOT-INF/classes/application-local.yaml

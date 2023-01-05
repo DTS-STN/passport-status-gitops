@@ -20,3 +20,11 @@ spec:
           envFrom:
             - secretRef:
                 name: passport-status-api-dev
+          # increase resources because of embedded h2
+          resources:
+            requests:
+              cpu: 2000m
+              memory: 512Mi
+            limits:
+              cpu: 4000m
+              memory: 2048Mi
