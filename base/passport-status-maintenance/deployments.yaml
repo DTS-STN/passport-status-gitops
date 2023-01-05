@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: passport-status-maintenance
+  labels:
+    app.kubernetes.io/name: passport-status-maintenance
+    app.kubernetes.io/component: maintenance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: passport-status-maintenance
+      app.kubernetes.io/component: maintenance
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: passport-status-maintenance
+        app.kubernetes.io/component: maintenance
+    spec:
+      containers:
+        - name: passport-status-maintenance
+          image: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance:latest
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 10
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi

@@ -7,10 +7,13 @@ commonLabels:
 bases:
   - ../../base/passport-status-api/
   - ../../base/passport-status-frontend/
+  - ../../base/passport-status-maintenance/
 images:
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status
+    newTag: nightly
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newTag: nightly
-  - name: dtsrhpdevscedacr.azurecr.io/passport-status
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
     newTag: nightly
 namespace: passport-status
 nameSuffix: -nightly
@@ -19,6 +22,7 @@ patchesStrategicMerge:
   - passport-status-api-deployments.yaml
   - passport-status-frontend-configmaps.yaml
   - passport-status-frontend-deployments.yaml
+  - passport-status-maintenance-deployments.yaml
 resources:
   - artemis-deployments.yaml
   - artemis-security-deployments.yaml
