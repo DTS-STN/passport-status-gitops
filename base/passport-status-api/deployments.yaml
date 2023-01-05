@@ -39,10 +39,10 @@ spec:
                 command: [ "sleep", "90" ]
           resources:
             requests:
-              cpu: 125m
+              cpu: 250m
               memory: 1024Mi
             limits:
-              cpu: 250m
+              cpu: 500m
               memory: 2048Mi
           volumeMounts:
             - name: config
