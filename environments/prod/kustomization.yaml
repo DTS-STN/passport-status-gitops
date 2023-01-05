@@ -7,13 +7,17 @@ commonLabels:
 bases:
   - ../../base/passport-status-api/
   - ../../base/passport-status-frontend/
+  - ../../base/passport-status-maintenance/
 images:
-  - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
-    newName: dtsprodcontainers.azurecr.io/passport-status-api
-    newTag: 0.0.0-a24b5e5f
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
     newName: dtsprodcontainers.azurecr.io/passport-status
     newTag: TC-170-dev
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
+    newName: dtsprodcontainers.azurecr.io/passport-status-api
+    newTag: 0.0.0-a24b5e5f
+  - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
+    newName: dtsprodcontainers.azurecr.io/passport-status-maintenance
+    newTag: 2023-01-05-8-1a47ffc1
 namespace: passport-status
 nameSuffix: -prod
 patchesStrategicMerge:
@@ -21,6 +25,7 @@ patchesStrategicMerge:
   - passport-status-api-deployments.yaml
   - passport-status-frontend-configmaps.yaml
   - passport-status-frontend-deployments.yaml
+  - passport-status-maintenance-deployments.yaml
 resources:
   - artemis-deployments.yaml
   - artemis-security-deployments.yaml
