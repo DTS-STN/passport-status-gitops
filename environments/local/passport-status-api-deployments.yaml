@@ -11,11 +11,3 @@ spec:
     spec:
       containers:
         - name: passport-status-api
-          # increase resources because of embedded h2
-          resources:
-            requests:
-              cpu: 2000m
-              memory: 512Mi
-            limits:
-              cpu: 4000m
-              memory: 2048Mi

@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: passport-status-api
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: passport-status-api
@@ -27,8 +26,3 @@ spec:
             - secretRef:
                 name: passport-status-api-nightly
           imagePullPolicy: Always
-          # increase resources to accommodate database seeding
-          resources:
-            limits:
-              cpu: 4000m
-              memory: 4096Mi
