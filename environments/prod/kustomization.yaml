@@ -17,7 +17,7 @@ images:
     newTag: 0.0.0-a24b5e5f
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
     newName: dtsprodcontainers.azurecr.io/passport-status-maintenance
-    newTag: 2023-01-05-8-1a47ffc1
+    newTag: 20230106-12-e434d1d5
 namespace: passport-status
 nameSuffix: -prod
 patchesStrategicMerge:
