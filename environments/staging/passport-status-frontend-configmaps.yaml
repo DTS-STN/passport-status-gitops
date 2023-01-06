@@ -5,6 +5,6 @@ metadata:
 data:
   .env: |-
     # Base URI for the Passport Status API
-    PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-staging.passport-status-preprod.svc.cluster.local:8080
+    PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-staging.passport-status-preprod.svc.cluster.local
     # Provide environment to front end application to determine whether or not to show test site banner
     NEXT_PUBLIC_ENVIRONMENT=staging
