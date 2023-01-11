@@ -26,7 +26,7 @@ data:
       gcnotify:
         file-number-notification:
           english-template-id: 82eee16d-a836-4521-9314-441b7628e235
-          french-template-id: 6d294617-7eb6-47ca-adb3-bd3b19f6bdc3
+          french-template-id: 6c0d35cb-e470-4631-b7f5-734fcb7caff0
 
     logging:
       level:
