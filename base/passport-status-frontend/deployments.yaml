@@ -28,11 +28,13 @@ spec:
               path: /api/health
               port: http
             initialDelaySeconds: 10
+            timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: /
               port: http
             initialDelaySeconds: 10
+            timeoutSeconds: 5
           resources:
             requests:
               cpu: 250m
