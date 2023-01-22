@@ -6,3 +6,4 @@ data:
   .env: |-
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-prod.passport-status.svc.cluster.local
+    NEXT_PUBLIC_ENVIRONMENT=prod

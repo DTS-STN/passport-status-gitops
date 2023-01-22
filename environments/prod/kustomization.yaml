@@ -10,14 +10,14 @@ bases:
   - ../../base/passport-status-maintenance/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newName: dtsprodcontainers.azurecr.io/passport-status
-    newTag: TC-170-dev
+    newName: dtsrhpprodscedspokeacr.azurecr.io/passport-status
+    newTag: 20230122-12-fe0f6bf3
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
-    newName: dtsprodcontainers.azurecr.io/passport-status-api
-    newTag: 0.0.0-a24b5e5f
+    newName: dtsrhpprodscedspokeacr.azurecr.io/passport-status-api
+    newTag: 20230120-00008-f432c9b3
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
-    newName: dtsprodcontainers.azurecr.io/passport-status-maintenance
-    newTag: 20230106-12-e434d1d5
+    newName: dtsrhpprodscedspokeacr.azurecr.io/passport-status-maintenance
+    newTag: 20230120-7-e434d1d5
 namespace: passport-status
 nameSuffix: -prod
 patchesStrategicMerge:
