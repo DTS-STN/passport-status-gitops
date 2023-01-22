@@ -26,7 +26,8 @@ For reference, manually add passwords created during the setup to HashiCorp Vaul
 Manually add API Secrets before running the environment setup.
 
 - passport-status-api-{env}
-  - APPLICATION_GCNOTIFY_API_KEY
+  - APPLICATION_GCNOTIFY_ENGLISH_API_KEY
+  - APPLICATION_GCNOTIFY_FRENCH_API_KEY
   - MANAGEMENT_METRICS_EXPORT_DYNATRACE_API_TOKEN
 
 ``` sh
