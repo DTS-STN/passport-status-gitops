@@ -4,6 +4,8 @@ metadata:
   name: passport-status-frontend-cm
 data:
   .env: |-
+    # Base URI for the Application
+    NEXT_PUBLIC_APP_BASE_URI=https://etatpasseport-passportstatus.service.canada.ca
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-prod.passport-status.svc.cluster.local
     NEXT_PUBLIC_ENVIRONMENT=prod
