@@ -5,3 +5,4 @@ commonLabels:
   app.kubernetes.io/managed-by: kustomize
 resources:
   - deployments.yaml
+  - services.yaml

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: passport-status-maintenance
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+  selector:
+    app.kubernetes.io/name: passport-status-maintenance
+    app.kubernetes.io/component: maintenance
