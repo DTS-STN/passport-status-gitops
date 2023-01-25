@@ -10,7 +10,7 @@ bases:
   - ../../base/passport-status-maintenance/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newTag: 20230120-233-1801fb5a
+    newTag: 20230125-249-36658ab1
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newTag: 20230120-00328-13ba9afb
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
