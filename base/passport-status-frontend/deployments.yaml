@@ -50,3 +50,7 @@ spec:
         - name: config
           configMap:
             name: passport-status-frontend-cm
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0%
+      maxSurge: 100%
