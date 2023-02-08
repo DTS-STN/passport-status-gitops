@@ -4,7 +4,11 @@ metadata:
   name: passport-status-frontend-cm
 data:
   .env: |-
+    # Adobe Analytics Script Source
+    NEXT_PUBLIC_ADOBE_ANALYTICS_SCRIPT_SRC=https://assets.adobedtm.com/be5dfd287373/1e84b99f81fb/launch-ffa1e01dbeab-staging.min.js
+
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-staging.passport-status-preprod.svc.cluster.local
+
     # Provide environment to front end application to determine whether or not to show test site banner
     NEXT_PUBLIC_ENVIRONMENT=staging
