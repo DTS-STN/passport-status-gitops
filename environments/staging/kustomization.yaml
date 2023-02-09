@@ -30,3 +30,7 @@ resources:
   - passport-status-api-ingresses.yaml
   - passport-status-frontend-hpas.yaml
   - passport-status-frontend-ingresses.yaml
+secretGenerator:
+- name: passport-status-api
+  envs:
+  - .env.api.secret

@@ -17,9 +17,6 @@ spec:
                 secretKeyRef:
                   name: security-properties-prop-module-passport-status-amq-security-dev
                   key: passport-status-dev
-          envFrom:
-            - secretRef:
-                name: passport-status-api-dev
           # increase resources because of embedded h2
           resources:
             requests:
