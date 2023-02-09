@@ -23,9 +23,6 @@ spec:
                 secretKeyRef:
                   name: staging-postgresql-ha-postgresql
                   key: postgresql-password
-          envFrom:
-            - secretRef:
-                name: passport-status-api-staging
           # increase resources to accommodate database seeding
           resources:
             limits:

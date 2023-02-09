@@ -23,9 +23,6 @@ spec:
                 secretKeyRef:
                   name: nightly-postgresql-ha-postgresql
                   key: postgresql-password
-          envFrom:
-            - secretRef:
-                name: passport-status-api-nightly
           imagePullPolicy: Always
           # increase resources to accommodate database seeding
           resources:

@@ -23,9 +23,6 @@ spec:
                secretKeyRef:
                  name: prod-postgresql-ha-postgresql
                  key: postgresql-password
-          envFrom:
-            - secretRef:
-                name: passport-status-api-prod
           # increase resources to accommodate database seeding
           resources:
             limits:

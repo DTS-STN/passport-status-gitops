@@ -28,3 +28,7 @@ resources:
   - artemis-security-deployments.yaml
   - passport-status-api-ingresses.yaml
   - passport-status-frontend-ingresses.yaml
+secretGenerator:
+- name: passport-status-api
+  envs:
+  - .env.api.secret
