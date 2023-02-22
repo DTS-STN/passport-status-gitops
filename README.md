@@ -23,34 +23,12 @@ For reference, manually add passwords created during the setup to HashiCorp Vaul
 
 ### Environment resources
 
-Manually add API Secrets before running the environment setup.
-
-- passport-status-api-{env}
-  - APPLICATION_GCNOTIFY_ENGLISH_API_KEY
-  - APPLICATION_GCNOTIFY_FRENCH_API_KEY
-  - MANAGEMENT_METRICS_EXPORT_DYNATRACE_API_TOKEN
+Create ".env.api.secret" in your environment folder with secrets. See .env.api.secret.sample.
 
 ``` sh
-
-NAMESPACE=passport-status
-ENVIRONMENT=test
-APPLICATION_GCNOTIFY_ENGLISH_API_KEY=[GC_NOTIFY_KEY_HERE]
-APPLICATION_GCNOTIFY_FRENCH_API_KEY=[GC_NOTIFY_KEY_HERE]
-MANAGEMENT_METRICS_EXPORT_DYNATRACE_API_TOKEN=[DYNATRACE_TOKEN]
-
-# Secret with two values
-kubectl --kubeconfig ~/.kube/dts-dev-sced-rhp-spoke-aks.yaml --namespace $NAMESPACE \
-  create secret generic passport-status-api-$ENVIRONMENT \
-  --from-literal=APPLICATION_GCNOTIFY_ENGLISH_API_KEY=$APPLICATION_GCNOTIFY_ENGLISH_API_KEY \
-  --from-literal=APPLICATION_GCNOTIFY_FRENCH_API_KEY=$APPLICATION_GCNOTIFY_FRENCH_API_KEY \
-  --from-literal=MANAGEMENT_METRICS_EXPORT_DYNATRACE_API_TOKEN=$MANAGEMENT_METRICS_EXPORT_DYNATRACE_API_TOKEN \
-
-# Add labels to secret
-kubectl --kubeconfig ~/.kube/dts-dev-sced-rhp-spoke-aks.yaml --namespace $NAMESPACE \
-  label secrets passport-status-api-$ENVIRONMENT \
-  app.kubernetes.io/instance=$ENVIRONMENT \
-  app.kubernetes.io/part-of=$NAMESPACE
-
+APPLICATION_GCNOTIFY_ENGLISH_API_KEY=YOUR_KEY_HERE
+APPLICATION_GCNOTIFY_FRENCH_API_KEY=YOUR_KEY_HERE
+MANAGEMENT_METRICS_EXPORT_DYNATRACE_API_TOKEN=YOUR_KEY_HERE
 ```
 
 Run Kustomize package
