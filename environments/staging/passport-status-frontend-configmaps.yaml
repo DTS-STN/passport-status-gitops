@@ -4,6 +4,9 @@ metadata:
   name: passport-status-frontend-cm
 data:
   .env: |-
+    # Base URI for the Application
+    NEXT_PUBLIC_APP_BASE_URI=https://passport-status-staging.dev-dp.dts-stn.com
+
     # Adobe Analytics Script Source
     NEXT_PUBLIC_ADOBE_ANALYTICS_SCRIPT_SRC=https://assets.adobedtm.com/be5dfd287373/1e84b99f81fb/launch-ffa1e01dbeab-staging.min.js
 
