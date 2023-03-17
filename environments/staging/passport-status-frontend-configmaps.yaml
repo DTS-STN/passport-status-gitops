@@ -8,7 +8,7 @@ data:
     NEXT_PUBLIC_APP_BASE_URI=https://passport-status-staging.dev-dp.dts-stn.com
 
     # Adobe Analytics Script Source
-    NEXT_PUBLIC_ADOBE_ANALYTICS_SCRIPT_SRC=https://assets.adobedtm.com/be5dfd287373/1e84b99f81fb/launch-ffa1e01dbeab-staging.min.js
+    NEXT_PUBLIC_ADOBE_ANALYTICS_SCRIPT_SRC=https://assets.adobedtm.com/be5dfd287373/9b9cb7867b5b/launch-cad75bf2f0d2-staging.min.js
 
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-staging.passport-status-preprod.svc.cluster.local
