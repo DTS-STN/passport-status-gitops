@@ -1,0 +1,58 @@
+# Kubernetes manifests for PostgreSQL cluster.
+#
+# For CRD docs, see https://access.crunchydata.com/documentation/postgres-operator/v5/
+# For example k8s manifests, see https://github.com/CrunchyData/postgres-operator-examples/
+# For container image docs, see https://access.crunchydata.com/documentation/crunchy-postgres-containers/v5/
+
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: passport-status-db
+spec:
+  image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-15.2-0
+  postgresVersion: 15
+  instances:
+    - name: pgha1
+      replicas: 3
+      dataVolumeClaimSpec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Ti
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    postgres-operator.crunchydata.com/cluster: passport-status-db
+                    postgres-operator.crunchydata.com/instance-set: pgha1
+  backups:
+    pgbackrest:
+      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.41-4
+      repos:
+        - name: repo1
+          volume:
+            volumeClaimSpec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 1Ti
+  proxy:
+    pgBouncer:
+      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.18-0
+      replicas: 3
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    postgres-operator.crunchydata.com/cluster: passport-status-db
+                    postgres-operator.crunchydata.com/role: pgbouncer
