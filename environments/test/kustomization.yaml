@@ -10,7 +10,7 @@ bases:
   - ../../base/passport-status-maintenance/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newTag: 20230511-26-583503d3
+    newTag: 20230511-27-1f466a27
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newTag: 20230309-00337-43a05ccd
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
@@ -29,6 +29,6 @@ resources:
   - passport-status-api-ingresses.yaml
   - passport-status-frontend-ingresses.yaml
 secretGenerator:
-- name: passport-status-api
-  envs:
-  - .env.api.secret
+  - name: passport-status-api
+    envs:
+      - .env.api.secret
