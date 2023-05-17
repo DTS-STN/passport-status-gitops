@@ -1,6 +1,6 @@
 # Kubernetes manifests for PostgreSQL cluster.
 #
-# For CRD docs, see https://access.crunchydata.com/documentation/postgres-operator/v5/
+# For CRD docs, see https://access.crunchydata.com/documentation/postgres-operator/v5/references/crd/
 # For example k8s manifests, see https://github.com/CrunchyData/postgres-operator-examples/
 # For container image docs, see https://access.crunchydata.com/documentation/crunchy-postgres-containers/v5/
 
@@ -11,6 +11,11 @@ metadata:
 spec:
   image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-15.2-0
   postgresVersion: 15
+  databaseInitSQL:
+    # important: when using kustomize prefixes/suffixes in
+    # overlays, this value must be patched to include them
+    name: passport-status-db
+    key: init-sql
   instances:
     - name: pgha1
       replicas: 3
@@ -28,6 +33,8 @@ spec:
                 topologyKey: kubernetes.io/hostname
                 labelSelector:
                   matchLabels:
+                    # important: when using kustomize prefixes/suffixes in
+                    # overlays, this value must be patched to include them
                     postgres-operator.crunchydata.com/cluster: passport-status-db
                     postgres-operator.crunchydata.com/instance-set: pgha1
   backups:
@@ -54,5 +61,12 @@ spec:
                 topologyKey: kubernetes.io/hostname
                 labelSelector:
                   matchLabels:
+                    # important: when using kustomize prefixes/suffixes in
+                    # overlays, this value must be patched to include them
                     postgres-operator.crunchydata.com/cluster: passport-status-db
                     postgres-operator.crunchydata.com/role: pgbouncer
+  users:
+    - name: postgres
+    - name: passport-status
+      databases:
+        - passport-status

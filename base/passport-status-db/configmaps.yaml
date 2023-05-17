@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: passport-status-db
+data:
+  init-sql: |-
+    alter database "passport-status" owner to "passport-status";
