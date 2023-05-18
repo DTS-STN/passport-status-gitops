@@ -58,4 +58,4 @@ patches:
         value: passport-status-db-test
       - op: replace
         path: /spec/databaseInitSQL/name
-        value: passport-status-db-dev
+        value: passport-status-db-test
