@@ -19,22 +19,22 @@ images:
 namespace: passport-status-preprod
 nameSuffix: -staging
 patchesStrategicMerge:
-  - passport-status-api-configmaps.yaml
-  - passport-status-api-deployments.yaml
-  - passport-status-frontend-configmaps.yaml
-  - passport-status-frontend-deployments.yaml
-  - passport-status-maintenance-deployments.yaml
+  - ./passport-status-api-configmaps.yaml
+  - ./passport-status-api-deployments.yaml
+  - ./passport-status-frontend-configmaps.yaml
+  - ./passport-status-frontend-deployments.yaml
+  - ./passport-status-maintenance-deployments.yaml
 resources:
-  - artemis-deployments.yaml
-  - artemis-security-deployments.yaml
-  - passport-status-api-hpas.yaml
-  - passport-status-api-ingresses.yaml
-  - passport-status-frontend-hpas.yaml
-  - passport-status-frontend-ingresses.yaml
+  - ./artemis-deployments.yaml
+  - ./artemis-security-deployments.yaml
+  - ./passport-status-api-hpas.yaml
+  - ./passport-status-api-ingresses.yaml
+  - ./passport-status-frontend-hpas.yaml
+  - ./passport-status-frontend-ingresses.yaml
 secretGenerator:
   - name: passport-status-api
     envs:
-    - .env.api.secret
+      - ./.env.api.secret
 patches:
   - target:
       kind: PostgresCluster
