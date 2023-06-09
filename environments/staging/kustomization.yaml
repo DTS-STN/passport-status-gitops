@@ -13,7 +13,7 @@ images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
     newTag: 20230531-31-29dc0363
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
-    newTag: 20230309-00337-43a05ccd
+    newTag: 20230608-00358-440268d4
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
     newTag: 20230106-12-e434d1d5
 namespace: passport-status-preprod
