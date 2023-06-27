@@ -15,3 +15,6 @@ data:
 
     # Provide environment to front end application to determine whether or not to show test site banner
     NEXT_PUBLIC_ENVIRONMENT=staging
+
+    # Base URI for fetching Alerts from Principle Publisher
+    ALERT_JSON_URI=https://www.canada.ca/content/dam/esdc-edsc/documents/services/notices/passportStatusStaging.json
