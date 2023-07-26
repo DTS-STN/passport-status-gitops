@@ -30,14 +30,15 @@ patchesStrategicMerge:
 resources:
   - ./artemis-deployments.yaml
   - ./artemis-security-deployments.yaml
+  - ./bitnami-to-crunchy-backup-cronjob.yaml # TODO :: GjB :: remove this when migration to crunchy is complete
   - ./passport-status-api-hpas.yaml
   - ./passport-status-api-ingresses.yaml
   - ./passport-status-frontend-hpas.yaml
   - ./passport-status-frontend-ingresses.yaml
 secretGenerator:
-- name: passport-status-api
-  envs:
-  - ./.env.api.secret
+  - name: passport-status-api
+    envs:
+      - ./.env.api.secret
 patches:
   - target:
       kind: PostgresCluster
