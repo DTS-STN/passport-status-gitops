@@ -24,7 +24,7 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 1Ti
+            storage: 2Ti
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -48,7 +48,7 @@ spec:
                 - ReadWriteOnce
               resources:
                 requests:
-                  storage: 1Ti
+                  storage: 2Ti
   proxy:
     pgBouncer:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.18-0
