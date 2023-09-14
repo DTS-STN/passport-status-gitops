@@ -45,6 +45,8 @@ spec:
         repo1-retention-full-type: count
       repos:
         - name: repo1
+          schedules:
+            full: '0 0/8 * * *'
           volume:
             volumeClaimSpec:
               accessModes:
