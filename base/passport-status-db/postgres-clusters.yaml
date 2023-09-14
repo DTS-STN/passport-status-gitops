@@ -40,6 +40,9 @@ spec:
   backups:
     pgbackrest:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.41-4
+      global:
+        repo1-retention-full: '3'
+        repo1-retention-full-type: count
       repos:
         - name: repo1
           volume:
