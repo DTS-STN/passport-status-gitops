@@ -51,9 +51,6 @@ patches:
         path: /spec/backups/pgbackrest/repos/0/volume/volumeClaimSpec/resources/requests/storage
         value: 2048Gi
       - op: replace
-        path: /spec/backups/pgbackrest/repos/0/schedules/full
-        value: '0 0/8 * * *' # Do a full backup every 8 hours.
-      - op: replace
         path: /spec/backups/pgbackrest/global/repo1-retention-full-type
         value: time # Switch retention to be based on number of days. 
       - op: replace
