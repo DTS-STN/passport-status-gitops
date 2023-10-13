@@ -8,6 +8,7 @@ spec:
     image: placeholder
     messageMigration: true
     persistenceEnabled: true
+    storageClassName: srestorageclass
     requireLogin: true
     # Issue: Artemis in kubernetes cluster doesn't start with persistance enabled equal to true
     # https://github.com/artemiscloud/activemq-artemis-operator/issues/187
