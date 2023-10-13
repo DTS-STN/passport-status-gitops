@@ -4,7 +4,7 @@ metadata:
   name: passport-status-amq
 spec:
   deploymentPlan:
-    size: 0
+    size: 3
     image: placeholder
     messageMigration: true
     persistenceEnabled: true
