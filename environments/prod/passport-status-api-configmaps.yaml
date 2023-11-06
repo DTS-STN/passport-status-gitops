@@ -26,9 +26,9 @@ data:
         '[ca.gov.dtsstn.passport.api]': info
 
     management:
-      metrics:
-        export:
-          dynatrace:
+      dynatrace:
+        metrics:
+          export:
             enabled: true
             uri: https://dynatrace.prod-dp.admin.dts-stn.com/e/676a0299-9802-4933-99d4-481318a557db/api/v2/metrics/ingest
             v2:
