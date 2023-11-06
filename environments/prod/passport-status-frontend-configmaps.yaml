@@ -13,3 +13,6 @@ data:
     NEXT_PUBLIC_ADOBE_ANALYTICS_SCRIPT_SRC=https://assets.adobedtm.com/be5dfd287373/9b9cb7867b5b/launch-59d77766b86a.min.js
 
     NEXT_PUBLIC_ENVIRONMENT=prod
+
+    # Base URI for fetching Alerts from Principle Publisher
+    ALERT_JSON_URI=https://www.canada.ca/content/dam/esdc-edsc/documents/services/notices/passportStatus.json
