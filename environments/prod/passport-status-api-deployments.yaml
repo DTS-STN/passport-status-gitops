@@ -21,8 +21,8 @@ spec:
            - name: SPRING_DATASOURCE_PASSWORD
              valueFrom:
                secretKeyRef:
-                 name: prod-postgresql-ha-postgresql
-                 key: postgresql-password
+                 name: passport-status-db-prod-pguser-passport-status
+                 key: password
           # increase resources to accommodate database seeding
           resources:
             limits:

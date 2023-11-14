@@ -44,5 +44,5 @@ data:
         mode: NATIVE
         user: passport-status-prod
       datasource:
-        url: jdbc:postgresql://prod-postgresql-ha-pgpool/passport-status
+        url: jdbc:postgresql://passport-status-db-prod-pgbouncer.passport-status.svc/passport-status
         username: passport-status
