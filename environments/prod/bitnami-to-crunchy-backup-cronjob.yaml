@@ -16,6 +16,10 @@ kind: CronJob
 metadata:
   name: bitnami-to-crunchy-db-backup
 spec:
+  #
+  # Note: this job must be suspended before database migration begins!
+  #
+  suspend: true
   schedule: 0 */6 * * * # Run at 00h00, 06h00, 12h00, and 18h00
   concurrencyPolicy: Forbid # skips the new job run the previous job run hasn't finished yet
   jobTemplate:
