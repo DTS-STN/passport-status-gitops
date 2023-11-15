@@ -4,14 +4,20 @@ metadata:
   name: passport-status-frontend-cm
 data:
   .env: |-
+    # TODO: REMOVE NEXT_PUBLIC_* VARIABLES ON NEXT RELEASE (REMOVED SINCE 2023-11-15)
+
     # Base URI for the Application
+    APP_BASE_URI=https://etatpasseport-passportstatus.service.canada.ca
     NEXT_PUBLIC_APP_BASE_URI=https://etatpasseport-passportstatus.service.canada.ca
+
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-prod.passport-status.svc.cluster.local
 
     # Adobe Analytics Script Source
+    ADOBE_ANALYTICS_SCRIPT_SRC=https://assets.adobedtm.com/be5dfd287373/9b9cb7867b5b/launch-59d77766b86a.min.js
     NEXT_PUBLIC_ADOBE_ANALYTICS_SCRIPT_SRC=https://assets.adobedtm.com/be5dfd287373/9b9cb7867b5b/launch-59d77766b86a.min.js
 
+    ENVIRONMENT=prod
     NEXT_PUBLIC_ENVIRONMENT=prod
 
     # Base URI for fetching Alerts from Principle Publisher
