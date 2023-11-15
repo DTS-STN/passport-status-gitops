@@ -5,10 +5,10 @@ metadata:
 data:
   .env: |-
     # Base URI for the Application
-    NEXT_PUBLIC_APP_BASE_URI=https://passport-status-dev.dev-dp-internal.dts-stn.com
+    APP_BASE_URI=https://passport-status-dev.dev-dp-internal.dts-stn.com
 
     # Provide environment to front end application to determine whether or not to show test site banner
-    NEXT_PUBLIC_ENVIRONMENT=dev
+    ENVIRONMENT=dev
 
     # Base URI for the Passport Status API
     PASSPORT_STATUS_API_BASE_URI=http://passport-status-api-dev.passport-status.svc.cluster.local
