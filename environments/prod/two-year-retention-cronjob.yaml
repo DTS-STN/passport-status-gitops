@@ -1,0 +1,39 @@
+#
+# A kubernetes cron job that will periodically purge passport statuses that are older than two years.
+#
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: passport-status-data-retention
+  namespace: passport-status
+spec:
+  schedule: 0 0 * * * # Run at 00h00 every day
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: Never 
+          containers:
+            - name: postgres
+              image: docker.io/postgres:15
+              env:
+                - name: PGHOST
+                  value: passport-status-db-prod-primary
+                - name: PGDATABASE
+                  value: passport-status
+                - name: PGUSER
+                  value: passport-status
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: passport-status-db-prod-pguser-passport-status
+                      key: password
+              command: ['/bin/bash', '-c']
+              args:
+                - |
+                  TABLES="email_request event_log http_request passport_status"
+                  TWO_YEARS_AGO=$(date -d "2 years ago" +"%Y-%m-%d")
+                  for TABLE in $TABLES
+                  do
+                    psql --echo-all -c "BEGIN; EXPLAIN ANALYZE DELETE FROM $TABLE WHERE last_modified_date < '$TWO_YEARS_AGO'; ROLLBACK;"
+                  done
