@@ -35,5 +35,5 @@ spec:
                   TWO_YEARS_AGO=$(date -d "2 years ago" +"%Y-%m-%d")
                   for TABLE in $TABLES
                   do
-                    psql --echo-all -c "BEGIN; EXPLAIN ANALYZE DELETE FROM $TABLE WHERE last_modified_date < '$TWO_YEARS_AGO'; ROLLBACK;"
+                    psql --echo-all -c "DELETE FROM $TABLE WHERE last_modified_date < '$TWO_YEARS_AGO';"
                   done
