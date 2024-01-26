@@ -46,10 +46,10 @@ patches:
     patch: |-
       - op: replace
         path: /spec/instances/0/dataVolumeClaimSpec/resources/requests/storage
-        value: 512Gi
+        value: 2048Gi
       - op: replace
         path: /spec/backups/pgbackrest/repos/0/volume/volumeClaimSpec/resources/requests/storage
-        value: 512Gi
+        value: 2048Gi
       - op: replace
         path: /spec/backups/pgbackrest/global/repo1-retention-full-type
         value: time # Switch retention to be based on number of days. 
