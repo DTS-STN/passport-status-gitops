@@ -11,7 +11,7 @@ bases:
   - ../../base/passport-status-maintenance/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newTag: 20240208-38-1a75e065
+    newTag: 20240209-39-f2ea9e98
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newTag: 20231103-00005-2ae8071d
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
@@ -56,7 +56,10 @@ patches:
         path: /spec/backups/pgbackrest/repos/0/schedules/full
         value: '0 0/12 * * *'
       - op: add 
-        path: /spec/backups/pgbackrest/resources/limits/cpu
+        path: /spec/backups/pgbackrest/jobs/resources/requests/cpu
+        value: 250m
+      - op: add 
+        path: /spec/backups/pgbackrest/jobs/resources/limits/cpu
         value: 500m 
       - op: replace
         path: /spec/instances/0/affinity/podAntiAffinity/preferredDuringSchedulingIgnoredDuringExecution/0/podAffinityTerm/labelSelector/matchLabels/postgres-operator.crunchydata.com~1cluster
