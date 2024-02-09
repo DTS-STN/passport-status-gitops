@@ -51,7 +51,7 @@ patches:
         value: 256Gi
       - op: replace
         path: /spec/backups/pgbackrest/global/repo1-retention-full
-        value: 2 
+        value: '2' 
       - op: replace
         path: /spec/backups/pgbackrest/repos/0/schedules/full
         value: '0 0/12 * * *'
