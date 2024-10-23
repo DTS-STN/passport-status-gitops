@@ -1,0 +1,36 @@
+# https://cloudnative-pg.io/documentation/1.23/database_import/
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: passport-status-db-cn
+  namespace: passport-status-preprod
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.2
+  bootstrap:
+    initdb:
+      import:
+        type: monolith
+        databases:
+          - passport-status
+        roles:
+          - '*'
+        source:
+          externalCluster: passport-status-db
+  postgresql:
+    shared_preload_libraries:
+      - pgaudit
+  storage:
+    size: 256Gi
+  externalClusters:
+    - name: passport-status-db 
+      connectionParameters:
+        # Use the correct IP or host name for the source database
+        host: passport-status-db-staging-primary.passport-status-preprod.svc.cluster.local
+        user: postgres 
+        dbname: passport-status 
+        sslmode: require
+      password:
+        name: postgres-passport-staging-cn 
+        key: pg-user-password 
+
