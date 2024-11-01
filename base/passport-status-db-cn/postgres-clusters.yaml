@@ -6,7 +6,7 @@ metadata:
   namespace: passport-status-preprod
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.2
+  # imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   bootstrap:
     initdb:
       import:
@@ -21,7 +21,7 @@ spec:
     shared_preload_libraries:
       - pgaudit
   storage:
-    size: 256Gi
+    size: 128Gi
   externalClusters:
     - name: passport-status-db 
       connectionParameters:
