@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Pooler
+metadata:
+  name: passport-status-db-staging-cn-pooler-rw
+spec:
+  cluster:
+    name: passport-status-db-staging-cn
+  instances: 2
+  type: rw
+  pgbouncer:
+    poolMode: session
+    parameters:
+      max_client_conn: "100"
+      default_pool_size: "10"

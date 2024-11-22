@@ -6,3 +6,4 @@ commonLabels:
 resources:
   - external-secrets.yaml
   - postgres-clusters.yaml
+  - postgres-poolers.yaml

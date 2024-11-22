@@ -2,13 +2,16 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: passport-status-db-cn
+  name: passport-status-db-staging-cn
   namespace: passport-status-preprod
 spec:
   instances: 1
-  # imageName: ghcr.io/cloudnative-pg/postgresql:15.2
   bootstrap:
     initdb:
+      database: passport-status
+      owner: passport-status
+      secret:
+        name: postgres-passport-staging-cn
       import:
         type: monolith
         databases:
@@ -21,7 +24,7 @@ spec:
     shared_preload_libraries:
       - pgaudit
   storage:
-    size: 128Gi
+    size: 64Gi
   externalClusters:
     - name: passport-status-db 
       connectionParameters:
@@ -31,6 +34,5 @@ spec:
         dbname: passport-status 
         sslmode: require
       password:
-        name: postgres-passport-staging-cn 
+        name: postgres-passport-staging-cn-crunchy-import 
         key: pg-user-password 
-
