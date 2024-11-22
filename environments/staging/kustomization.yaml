@@ -111,5 +111,5 @@ patches:
               dbname: passport-status 
               sslmode: require
             password:
-              name: postgres-passport-cn-crunchy-import-staging 
+              name: passport-status-db-cn-crunchy-import-staging 
               key: pg-user-password
