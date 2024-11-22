@@ -2,8 +2,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: passport-status-db-staging-cn
-  namespace: passport-status-preprod
+  name: passport-status-db-cn
 spec:
   instances: 1
   bootstrap:
@@ -11,28 +10,6 @@ spec:
       database: passport-status
       owner: passport-status
       secret:
-        name: postgres-passport-staging-cn
-      import:
-        type: monolith
-        databases:
-          - passport-status
-        roles:
-          - '*'
-        source:
-          externalCluster: passport-status-db
-  postgresql:
-    shared_preload_libraries:
-      - pgaudit
+        name: postgres-passport-cn
   storage:
     size: 64Gi
-  externalClusters:
-    - name: passport-status-db 
-      connectionParameters:
-        # Use the correct IP or host name for the source database
-        host: passport-status-db-staging-primary.passport-status-preprod.svc.cluster.local
-        user: postgres 
-        dbname: passport-status 
-        sslmode: require
-      password:
-        name: postgres-passport-staging-cn-crunchy-import 
-        key: pg-user-password 

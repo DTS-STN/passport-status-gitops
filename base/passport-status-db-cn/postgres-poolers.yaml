@@ -1,10 +1,10 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Pooler
 metadata:
-  name: passport-status-db-staging-cn-pooler-rw
+  name: passport-status-db-cn-pooler-rw
 spec:
   cluster:
-    name: passport-status-db-staging-cn
+    name: passport-status-db-cn
   instances: 2
   type: rw
   pgbouncer:

@@ -50,5 +50,5 @@ data:
         mode: NATIVE
         user: passport-status-staging
       datasource:
-        url: jdbc:postgresql://passport-status-db-staging-cn-pooler-rw/passport-status
+        url: jdbc:postgresql://passport-status-db-cn-pooler-rw-staging/passport-status
         username: passport-status

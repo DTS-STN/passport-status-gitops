@@ -7,6 +7,7 @@ commonLabels:
 bases:
   - ../../base/passport-status-api/
   - ../../base/passport-status-db/
+  - ../../base/passport-status-db-cn/
   - ../../base/passport-status-frontend/
   - ../../base/passport-status-maintenance/
 images:
@@ -27,6 +28,7 @@ patchesStrategicMerge:
 resources:
   - ./artemis-deployments.yaml
   - ./artemis-security-deployments.yaml
+  - ./external-secrets.yaml
   - ./passport-status-api-hpas.yaml
   - ./passport-status-api-ingresses.yaml
   - ./passport-status-frontend-hpas.yaml
@@ -72,3 +74,44 @@ patches:
       - op: replace
         path: /spec/databaseInitSQL/name
         value: passport-status-db-staging
+  - target:
+      kind: Cluster
+      name: passport-status-db-cn
+    patch: |-
+      - op: replace
+        path: /spec/instances
+        value: 1
+      - op: replace
+        path: /spec/storage/size
+        value: 64Gi
+      - op: add 
+        path: /spec/bootstrap/initdb
+        value:
+          import:
+            type: monolith
+            databases:
+              - passport-status
+            roles:
+              - '*'
+            source:
+              externalCluster: passport-status-db
+      - op: add
+        path: /spec
+        value:
+          postgresql:
+            shared_preload_libraries:
+              - pgaudit
+      - op: add
+        path: /spec
+        value:
+          externalClusters:
+            - name: passport-status-db 
+              connectionParameters:
+                # Use the correct IP or host name for the source database
+                host: passport-status-db-staging-primary.passport-status-preprod.svc.cluster.local
+                user: postgres 
+                dbname: passport-status 
+                sslmode: require
+              password:
+                name: postgres-passport-staging-cn-crunchy-import 
+                key: pg-user-password

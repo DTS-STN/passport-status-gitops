@@ -4,6 +4,5 @@ commonLabels:
   app.kubernetes.io/part-of: passport-status
   app.kubernetes.io/managed-by: kustomize
 resources:
-  - external-secrets.yaml
   - postgres-clusters.yaml
   - postgres-poolers.yaml
