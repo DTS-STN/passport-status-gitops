@@ -94,7 +94,7 @@ patches:
             roles:
               - '*'
             source:
-              externalCluster: passport-status-db
+              externalCluster: passport-status-db-staging
       - op: add
         path: /spec/postgresql
         value:
@@ -103,7 +103,7 @@ patches:
       - op: add
         path: /spec/externalClusters
         value:
-          - name: passport-status-db 
+          - name: passport-status-db-staging 
             connectionParameters:
               # Use the correct IP or host name for the source database
               host: passport-status-db-staging-primary.passport-status-preprod.svc.cluster.local
@@ -111,5 +111,5 @@ patches:
               dbname: passport-status 
               sslmode: require
             password:
-              name: postgres-passport-staging-cn-crunchy-import 
+              name: postgres-passport-cn-crunchy-import-staging 
               key: pg-user-password
