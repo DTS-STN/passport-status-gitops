@@ -113,3 +113,10 @@ patches:
             password:
               name: passport-status-db-cn-crunchy-import-staging 
               key: pg-user-password
+  - target:
+      kind: Pooler 
+      name: passport-status-db-cn-pooler-rw
+    patch: |-
+      - op: replace
+        path: /spec/cluster/name
+        value: passport-status-db-cn-staging
