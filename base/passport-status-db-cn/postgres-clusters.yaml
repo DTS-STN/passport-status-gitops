@@ -1,0 +1,15 @@
+# https://cloudnative-pg.io/documentation/1.23/database_import/
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: passport-status-db-cn
+spec:
+  instances: 1
+  bootstrap:
+    initdb:
+      database: passport-status
+      owner: passport-status
+      secret:
+        name: postgres-passport-cn
+  storage:
+    size: 64Gi
