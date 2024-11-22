@@ -85,16 +85,15 @@ patches:
         path: /spec/storage/size
         value: 64Gi
       - op: add 
-        path: /spec/bootstrap/initdb
+        path: /spec/bootstrap/initdb/import
         value:
-          import:
-            type: monolith
-            databases:
-              - passport-status
-            roles:
-              - '*'
-            source:
-              externalCluster: passport-status-db-staging
+          type: monolith
+          databases:
+            - passport-status
+          roles:
+            - '*'
+          source:
+            externalCluster: passport-status-db-staging
       - op: add
         path: /spec/postgresql
         value:
