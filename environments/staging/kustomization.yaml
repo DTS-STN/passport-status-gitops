@@ -33,10 +33,10 @@ resources:
   - ./passport-status-api-ingresses.yaml
   - ./passport-status-frontend-hpas.yaml
   - ./passport-status-frontend-ingresses.yaml
-secretGenerator:
-  - name: passport-status-api
-    envs:
-      - ./.env.api.secret
+# secretGenerator:
+#   - name: passport-status-api
+#     envs:
+#       - ./.env.api.secret
 patches:
   - target:
       kind: PostgresCluster
@@ -96,22 +96,20 @@ patches:
             source:
               externalCluster: passport-status-db
       - op: add
-        path: /spec
+        path: /spec/postgresql
         value:
-          postgresql:
-            shared_preload_libraries:
-              - pgaudit
+          shared_preload_libraries:
+            - pgaudit
       - op: add
-        path: /spec
+        path: /spec/externalClusters
         value:
-          externalClusters:
-            - name: passport-status-db 
-              connectionParameters:
-                # Use the correct IP or host name for the source database
-                host: passport-status-db-staging-primary.passport-status-preprod.svc.cluster.local
-                user: postgres 
-                dbname: passport-status 
-                sslmode: require
-              password:
-                name: postgres-passport-staging-cn-crunchy-import 
-                key: pg-user-password
+          - name: passport-status-db 
+            connectionParameters:
+              # Use the correct IP or host name for the source database
+              host: passport-status-db-staging-primary.passport-status-preprod.svc.cluster.local
+              user: postgres 
+              dbname: passport-status 
+              sslmode: require
+            password:
+              name: postgres-passport-staging-cn-crunchy-import 
+              key: pg-user-password
