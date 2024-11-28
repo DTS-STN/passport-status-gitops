@@ -12,7 +12,7 @@ bases:
   - ../../base/passport-status-maintenance/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newTag: 20241125-52-be49b67c
+    newTag: 20241127-544-a01807ca
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newTag: 20241125-00008-4e1361b1
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
@@ -116,7 +116,7 @@ patches:
               name: passport-status-db-cn-crunchy-import-staging 
               key: pg-user-password
   - target:
-      kind: Pooler 
+      kind: Pooler
       name: passport-status-db-cn-pooler-rw
     patch: |-
       - op: replace
