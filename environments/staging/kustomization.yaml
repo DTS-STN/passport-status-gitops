@@ -50,34 +50,6 @@ patches:
       - op: replace
         path: /spec/bootstrap/initdb/secret/name
         value: passport-status-db-cn-staging 
-      - op: add 
-        path: /spec/bootstrap/initdb/import
-        value:
-          type: monolith
-          databases:
-            - passport-status
-          roles:
-            - '*'
-          source:
-            externalCluster: passport-status-db-staging
-      - op: add
-        path: /spec/postgresql
-        value:
-          shared_preload_libraries:
-            - pgaudit
-      - op: add
-        path: /spec/externalClusters
-        value:
-          - name: passport-status-db-staging 
-            connectionParameters:
-              # Use the correct IP or host name for the source database
-              host: passport-status-db-staging-primary.passport-status-preprod.svc.cluster.local
-              user: postgres 
-              dbname: passport-status 
-              sslmode: require
-            password:
-              name: passport-status-db-cn-crunchy-import-staging 
-              key: pg-user-password
   - target:
       kind: Pooler
       name: passport-status-db-cn-pooler-rw
