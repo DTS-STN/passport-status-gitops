@@ -11,7 +11,7 @@ bases:
   - ../../base/passport-status-maintenance/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newTag: 20241128-547-137086fb
+    newTag: 20241202-549-b905ff9c
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newTag: 20241125-00008-4e1361b1
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
@@ -49,7 +49,7 @@ patches:
         value: 64Gi
       - op: replace
         path: /spec/bootstrap/initdb/secret/name
-        value: passport-status-db-cn-staging 
+        value: passport-status-db-cn-staging
   - target:
       kind: Pooler
       name: passport-status-db-cn-pooler-rw
