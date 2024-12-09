@@ -21,10 +21,10 @@ spec:
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: passport-status-db-staging-pguser-passport-status
+                  name: passport-status-db-cn-staging
                   key: password
           # increase resources to accommodate database seeding
           resources:
             limits:
-              cpu: 4000m
-              memory: 4096Mi
+              cpu: 500m
+              memory: 1024Mi
