@@ -25,6 +25,9 @@ spec:
                   key: password
           # increase resources to accommodate database seeding
           resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
             limits:
               cpu: 500m
               memory: 1024Mi
