@@ -5,6 +5,8 @@ metadata:
 data:
   application.yaml: |-
     application:
+      feature-flags:
+        hidden-manifests: ['PASSPORT_ISSUED_SHIPPING_CANADA_POST']
       database-initializer:
         generated-statuses-number: 100_000
       request-logging-filter:
