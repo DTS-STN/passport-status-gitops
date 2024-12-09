@@ -23,6 +23,10 @@ spec:
                 secretKeyRef:
                   name: passport-status-db-cn-staging
                   key: password
+          livenessProbe:
+            initialDelaySeconds: 120 
+          readinessProbe:
+            initialDelaySeconds: 120 
           # increase resources to accommodate database seeding
           resources:
             requests:
