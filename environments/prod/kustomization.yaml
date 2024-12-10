@@ -7,6 +7,7 @@ commonLabels:
 bases:
   - ../../base/passport-status-api/
   - ../../base/passport-status-db/
+  - ../../base/passport-status-db-cn/
   - ../../base/passport-status-frontend/
   - ../../base/passport-status-maintenance/
 images:
@@ -30,6 +31,7 @@ patchesStrategicMerge:
 resources:
   - ./artemis-deployments.yaml
   - ./artemis-security-deployments.yaml
+  - ./external-secrets.yaml
   - ./passport-status-api-hpas.yaml
   - ./passport-status-api-ingresses.yaml
   - ./passport-status-frontend-hpas.yaml
@@ -40,6 +42,54 @@ secretGenerator:
     envs:
       - ./.env.api.secret
 patches:
+  - target:
+      kind: Cluster
+      name: passport-status-db-cn
+    patch: |-
+      - op: replace
+        path: /spec/instances
+        value: 3
+      - op: replace
+        path: /spec/storage/size
+        value: 1024Gi
+      - op: replace
+        path: /spec/bootstrap/initdb/secret/name
+        value: passport-status-db-cn-prod
+      - op: add 
+        path: /spec/bootstrap/initdb/import
+        value:
+          type: monolith
+          databases:
+            - passport-status
+          roles:
+            - '*'
+          source:
+            externalCluster: passport-status-db-prod
+      - op: add
+        path: /spec/postgresql
+        value:
+          shared_preload_libraries:
+            - pgaudit
+      - op: add
+        path: /spec/externalClusters
+        value:
+          - name: passport-status-db-prod
+            connectionParameters:
+              # Use the correct IP or host name for the source database
+              host: passport-status-db-prod-primary.passport-status.svc.cluster.local
+              user: postgres 
+              dbname: passport-status 
+              sslmode: require
+            password:
+              name: passport-status-db-prod-pguser-postgres
+              key: password
+  - target:
+      kind: Pooler
+      name: passport-status-db-cn-pooler-rw
+    patch: |-
+      - op: replace
+        path: /spec/cluster/name
+        value: passport-status-db-cn-prod
   - target:
       kind: PostgresCluster
       name: passport-status-db
