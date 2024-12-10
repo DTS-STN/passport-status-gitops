@@ -26,5 +26,5 @@ spec:
           # increase resources to accommodate database seeding
           resources:
             limits:
-              cpu: 4000m
-              memory: 4096Mi
+              cpu: 1000m
+              memory: 2048Mi
