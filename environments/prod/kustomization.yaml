@@ -12,7 +12,7 @@ bases:
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
     newName: dtsrhpprodscedspokeacr.azurecr.io/passport-status
-    newTag: 20241210-00361-73ca634b
+    newTag: 20241210-00362-0d989f18
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
     newName: dtsrhpprodscedspokeacr.azurecr.io/passport-status-api
     newTag: 20241210-00101-636a993b
