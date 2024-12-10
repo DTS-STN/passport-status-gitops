@@ -37,11 +37,11 @@ spec:
             timeoutSeconds: 5
           resources:
             requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
               cpu: 250m
               memory: 512Mi
-            limits:
-              cpu: 500m
-              memory: 1024Mi
           volumeMounts:
             - name: config
               mountPath: /app/.env
