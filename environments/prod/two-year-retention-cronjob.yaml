@@ -18,7 +18,7 @@ spec:
               image: docker.io/postgres:15
               env:
                 - name: PGHOST
-                  value: passport-status-db-prod-primary
+                  value: passport-status-db-cn-pooler-rw-prod
                 - name: PGDATABASE
                   value: passport-status
                 - name: PGUSER
@@ -26,7 +26,7 @@ spec:
                 - name: PGPASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: passport-status-db-prod-pguser-passport-status
+                      name: passport-status-db-cn-prod
                       key: password
               command: ['/bin/bash', '-c']
               args:
