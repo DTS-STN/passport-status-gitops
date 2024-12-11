@@ -30,12 +30,12 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: http
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: http
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
           lifecycle:
             preStop:
               exec:
@@ -45,7 +45,6 @@ spec:
               cpu: 100m
               memory: 512Mi
             limits:
-              cpu: 500m
               memory: 1024Mi
           volumeMounts:
             - name: config
