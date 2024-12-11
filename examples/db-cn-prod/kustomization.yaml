@@ -1,0 +1,70 @@
+# This is an example yaml for moving an existing postgres db 
+# to the cloud native operator.
+# This copies all data to the new cluster.
+# Then when it's ready to go, you delete the bootstrap config
+# since it won't need it on future runs of gitops and it may
+# rely on secrets (like the old DB password) you want to delete.
+# See the actual prod kustomization.yaml to compare this initial
+# bootstrap setup with the final setup.
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  # commonLabels must have at least one unique label
+  # per environment to ensure selectors are applied correctly
+  app.kubernetes.io/instance: prod
+bases:
+  - ../../base/passport-status-db-cn/
+namespace: passport-status
+nameSuffix: -prod
+resources:
+  - ./external-secrets.yaml
+patches:
+  - target:
+      kind: Cluster
+      name: passport-status-db-cn
+    patch: |-
+      - op: replace
+        path: /spec/instances
+        value: 3
+      - op: replace
+        path: /spec/storage/size
+        value: 1024Gi
+      - op: replace
+        path: /spec/bootstrap/initdb/secret/name
+        value: passport-status-db-cn-prod
+      - op: add 
+        path: /spec/bootstrap/initdb/import
+        value:
+          type: monolith
+          databases:
+            - passport-status
+          roles:
+            - '*'
+          source:
+            externalCluster: passport-status-db-prod
+      - op: add
+        path: /spec/postgresql
+        value:
+          shared_preload_libraries:
+            - pgaudit
+      - op: add
+        path: /spec/externalClusters
+        value:
+          - name: passport-status-db-prod
+            connectionParameters:
+              # Use the correct IP or host name for the source database
+              host: passport-status-db-prod-primary.passport-status.svc.cluster.local
+              user: postgres 
+              dbname: passport-status 
+              sslmode: require
+            password:
+              name: passport-status-db-prod-pguser-postgres
+              key: password
+  - target:
+      kind: Pooler
+      name: passport-status-db-cn-pooler-rw
+    patch: |-
+      - op: replace
+        path: /spec/cluster/name
+        value: passport-status-db-cn-prod
