@@ -4,6 +4,5 @@ commonLabels:
   # commonLabels must have at least one unique label
   # per environment to ensure selectors are applied correctly
   app.kubernetes.io/instance: shared-prod
-bases:
-  - ../../base/postgres-operator/
+
 namespace: passport-status

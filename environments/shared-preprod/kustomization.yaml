@@ -5,7 +5,4 @@ commonLabels:
   # per environment to ensure selectors are applied correctly
   app.kubernetes.io/instance: shared-preprod
 
-# bases:
-#   - ../../base/postgres-operator/
-
 namespace: passport-status-preprod
