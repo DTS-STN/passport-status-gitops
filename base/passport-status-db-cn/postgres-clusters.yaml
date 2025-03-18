@@ -11,5 +11,8 @@ spec:
       owner: passport-status
       secret:
         name: passport-status-db-cn
+  postgresql:
+    parameters:
+      wal_keep_size: 1GB
   storage:
     size: 64Gi
