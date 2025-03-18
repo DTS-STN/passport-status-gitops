@@ -49,7 +49,7 @@ patches:
     patch: |-
       - op: replace
         path: /spec/instances
-        value: 1
+        value: 2
       - op: replace
         path: /spec/storage/size
         value: 1024Gi
