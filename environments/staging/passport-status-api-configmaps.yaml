@@ -8,7 +8,8 @@ data:
       feature-flags:
         hidden-manifests: []
       database-initializer:
-        generated-statuses-number: 100_000
+        run-on-startup: true
+        generated-statuses-number: 10000
       request-logging-filter:
         enabled: true
       security:
