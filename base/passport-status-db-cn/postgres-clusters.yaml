@@ -18,6 +18,14 @@ spec:
         name: passport-status-db-cn
   postgresql:
     parameters:
+      shared_buffers: "256MB"
       wal_keep_size: 1GB
+  resources:
+    requests:
+      memory: "1024Mi"
+      cpu: 1
+    limits:
+      memory: "1024Mi"
+      cpu: 1
   storage:
     size: 64Gi
