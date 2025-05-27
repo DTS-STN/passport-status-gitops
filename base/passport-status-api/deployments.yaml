@@ -38,9 +38,9 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: http
-            failureThreshold: 300
-            periodSeconds: 30
-            timeoutSeconds: 5
+            failureThreshold: 30
+            periodSeconds: 10
+            timeoutSeconds: 2
           lifecycle:
             preStop:
               exec:
