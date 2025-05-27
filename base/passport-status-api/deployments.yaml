@@ -38,13 +38,13 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: http
-            failureThreshold: 30
-            periodSeconds: 10
-            timeoutSeconds: 2
+            failureThreshold: 300
+            periodSeconds: 30
+            timeoutSeconds: 5
           lifecycle:
             preStop:
               exec:
-                command: [ "sleep", "30" ]
+                command: ["sleep", "30"]
           resources:
             requests:
               cpu: 100m
