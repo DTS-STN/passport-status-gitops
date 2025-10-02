@@ -50,6 +50,21 @@ patches:
       - op: replace
         path: /spec/bootstrap/initdb/secret/name
         value: passport-status-db-cn-staging
+      - op: replace
+        path: /spec/resources/requests/cpu
+        value: 200m
+      - op: replace
+        path: /spec/resources/limits/cpu
+        value: 500m
+      - op: replace
+        path: /spec/resources/requests/memory
+        value: 512Mi
+      - op: replace
+        path: /spec/resources/limits/memory
+        value: 1Gi
+      - op: replace
+        path: /spec/postgresql/parameters/shared_buffers
+        value: 128MB
   - target:
       kind: Pooler
       name: passport-status-db-cn-pooler-rw
