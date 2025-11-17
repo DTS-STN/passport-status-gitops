@@ -11,9 +11,9 @@ bases:
   - ../../base/passport-status-maintenance/
 images:
   - name: dtsrhpdevscedacr.azurecr.io/passport-status
-    newTag: 20251114-633-f96aa5e8
+    newTag: 20250715-90-2fbc44a8
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-api
-    newTag: 20251006-00450-6592ffc8
+    newTag: 20250313-00013-c4f75f34
   - name: dtsrhpdevscedacr.azurecr.io/passport-status-maintenance
     newTag: 20230106-12-e434d1d5
 namespace: passport-status-preprod
