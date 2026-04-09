@@ -6,6 +6,11 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
   ingressClassName: nginx
+  tls:
+    # TLS secret 'devdpinternaldtsstncom' is provisioned by the cluster platform.
+    - secretName: devdpinternaldtsstncom
+      hosts:
+        - passport-status-staging.dev-dp-internal.dts-stn.com
   rules:
     - host: passport-status-staging.dev-dp-internal.dts-stn.com
       http:
@@ -19,7 +24,6 @@ spec:
                   name: http
 
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -31,6 +35,11 @@ metadata:
     nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
 spec:
   ingressClassName: nginx
+  tls:
+    # TLS secret 'devdpdtsstncom' is provisioned by the cluster platform.
+    - secretName: devdpdtsstncom
+      hosts:
+        - passport-status-staging.dev-dp.dts-stn.com
   rules:
     - host: passport-status-staging.dev-dp.dts-stn.com
       http:

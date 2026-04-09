@@ -6,6 +6,11 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
   ingressClassName: nginx
+  tls:
+    # TLS secret 'proddpinternaldtsstncom' is provisioned by the cluster platform.
+    - secretName: proddpinternaldtsstncom
+      hosts:
+        - passport-status-api.prod-dp-internal.dts-stn.com
   rules:
     - host: passport-status-api.prod-dp-internal.dts-stn.com
       http:
