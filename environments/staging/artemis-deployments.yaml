@@ -15,7 +15,7 @@ spec:
     # https://github.com/artemiscloud/activemq-artemis-operator/issues/187
     podSecurityContext:
       fsGroup: 0
-      fsGroupChangePolicy: "OnRootMismatch"
+      fsGroupChangePolicy: 'OnRootMismatch'
   console:
     expose: true
 
@@ -29,6 +29,11 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: 'true'
 spec:
   ingressClassName: nginx
+  tls:
+    # TLS secret 'devdpinternaldtsstncom' is provisioned by the cluster platform.
+    - secretName: devdpinternaldtsstncom
+      hosts:
+        - passport-status-amq-wconsj-0-staging.dev-dp-internal.dts-stn.com
   rules:
     - host: passport-status-amq-wconsj-0-staging.dev-dp-internal.dts-stn.com
       http:
