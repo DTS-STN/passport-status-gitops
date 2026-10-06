@@ -44,12 +44,13 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: ["sleep", "30"]
+                command: ['sleep', '30']
           resources:
             requests:
               cpu: 100m
               memory: 512Mi
             limits:
+              cpu: 500m
               memory: 1024Mi
           volumeMounts:
             - name: config
