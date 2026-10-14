@@ -5,7 +5,8 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: data-retention
-  namespace: passport-status
+  labels:
+    app.kubernetes.io/name: data-retention
 spec:
   schedule: 0 0 * * * # Run at 00h00 every day
   jobTemplate:

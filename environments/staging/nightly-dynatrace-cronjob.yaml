@@ -2,7 +2,8 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: nightly-dynatrace
-  namespace: passport-status
+  labels:
+    app.kubernetes.io/name: nightly-dynatrace
 spec:
   schedule: '0 5 * * *'
   concurrencyPolicy: Forbid
