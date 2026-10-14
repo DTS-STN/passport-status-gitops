@@ -2,7 +2,8 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: nightly-audit
-  namespace: passport-status
+  labels:
+    app.kubernetes.io/name: nightly-audit
 spec:
   schedule: '0 5 * * *'
   concurrencyPolicy: Forbid
@@ -78,7 +79,8 @@ spec:
                       ON event_log.details::json->'passportStatus'->>'statusCodeId' = passport_status_code.id
                     LEFT JOIN source_code AS passport_source_code
                       ON event_log.details::json->'passportStatus'->>'sourceCodeId' = passport_source_code.id
-                    WHERE DATE(event_log.created_date) = (current_timestamp AT TIME ZONE 'UTC')::date - 1
+                    WHERE event_log.created_date >= ((current_timestamp AT TIME ZONE 'UTC')::date - 1)::timestamp
+                      AND event_log.created_date <  ((current_timestamp AT TIME ZONE 'UTC')::date)::timestamp
                       AND event_type NOT IN ('CREATE_STATUS_SUCCESS', 'CREATE_STATUS_CONFLICT')
                     ORDER BY event_log.created_date ASC
                   ) TO STDOUT WITH CSV HEADER" > "/audits/event_log_${yesterday}.csv"
@@ -114,7 +116,8 @@ spec:
                       ON event_log.details::json->'passportStatus'->>'statusCodeId' = passport_status_code.id
                     LEFT JOIN source_code AS passport_source_code
                       ON event_log.details::json->'passportStatus'->>'sourceCodeId' = passport_source_code.id
-                    WHERE DATE(event_log.created_date) = (current_timestamp AT TIME ZONE 'UTC')::date - 1
+                    WHERE event_log.created_date >= ((current_timestamp AT TIME ZONE 'UTC')::date - 1)::timestamp
+                      AND event_log.created_date <  ((current_timestamp AT TIME ZONE 'UTC')::date)::timestamp
                       AND event_type NOT IN ('CREATE_STATUS_SUCCESS', 'CREATE_STATUS_CONFLICT')
                     ORDER BY event_log.created_date ASC
                   ) TO STDOUT WITH CSV HEADER" > "/audits/event_log_scrubbed_${yesterday}.csv"
