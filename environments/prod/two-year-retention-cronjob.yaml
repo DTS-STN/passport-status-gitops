@@ -5,14 +5,15 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: passport-status-data-retention
-  namespace: passport-status
+  labels:
+    app.kubernetes.io/name: passport-status-data-retention
 spec:
   schedule: 0 0 * * * # Run at 00h00 every day
   jobTemplate:
     spec:
       template:
         spec:
-          restartPolicy: Never 
+          restartPolicy: Never
           containers:
             - name: postgres
               image: docker.io/postgres:17

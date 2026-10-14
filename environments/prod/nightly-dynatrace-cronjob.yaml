@@ -1,0 +1,137 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nightly-dynatrace
+  labels:
+    app.kubernetes.io/name: nightly-dynatrace
+spec:
+  schedule: '0 5 * * *'
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 3600
+      ttlSecondsAfterFinished: 604800
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: export-dynatrace-csv
+              image: badouralix/curl-jq
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 1Gi
+              env:
+                - name: DYNATRACE_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: passport-status-dynatrace-prod
+                      key: metrics-read-token
+              command: ['/bin/sh', '-c']
+              args:
+                - |
+                  set -euo pipefail
+                  apk add --no-cache coreutils
+
+                  echo "Starting Dynatrace metrics export"
+
+                  DT_METRICS_URL='https://dynatrace.prod-dp.admin.dts-stn.com/e/676a0299-9802-4933-99d4-481318a557db/api/v2/metrics/query'
+                  VISITS_EN_QUERY='builtin:service.keyRequest.count.total:filter(and(or(in(%22dt.entity.service_method%22,entitySelector(%22type(service_method),entityName.equals(~%22/en/expectations~%22)%22))))):splitBy():sort(value(auto,descending)):fold'
+                  VISITS_FR_QUERY='builtin:service.keyRequest.count.total:filter(and(or(in(%22dt.entity.service_method%22,entitySelector(%22type(service_method),entityName.equals(~%22/fr/expectations~%22)%22))))):splitBy():sort(value(auto,descending)):fold'
+                  VISIT_RATE_QUERY='builtin:service.keyRequest.count.total:filter(and(or(in(%22dt.entity.service_method%22,entitySelector(%22type(service_method),entityName.equals(~%22/en/expectations~%22)%22))))):splitBy():sort(value(auto,descending)):value:rate(h):fold(avg)%2Bbuiltin:service.keyRequest.count.total:filter(and(or(in(%22dt.entity.service_method%22,entitySelector(%22type(service_method),entityName.equals(~%22/fr/expectations~%22)%22))))):splitBy():sort(value(auto,descending)):value:rate(h):fold(avg)'
+                  ESRF_EMAIL_QUERY='passport-status-api.esrf_requests.sent.count:splitBy():sort(value(auto,descending)):fold'
+                  STATUS_HIT_QUERY='passport-status-api.passport_statuses.searches.hits.count:splitBy():sort(value(auto,descending)):fold'
+                  FROM_LAUNCH='2023-03-21T14:30'
+                  DT_YESTERDAY='now/d-d&to=now/d'
+                  YESTERDAY=$(date -u -d 'yesterday' '+%Y-%m-%d')
+
+                  fetch_value() {
+                    selector="$1"
+                    from="$2"
+                    response=$(curl --fail --silent --show-error --location \
+                      -H "Authorization: Api-Token ${DYNATRACE_TOKEN}" \
+                      -H 'Accept: application/json' \
+                      "${DT_METRICS_URL}?metricSelector=${selector}&from=${from}")
+                    printf '%s' "$response" | jq -r '.result[0].data[0].values[0] // "null"'
+                  }
+
+                  TOTAL_VISITS_EN=$(fetch_value "$VISITS_EN_QUERY" "$FROM_LAUNCH")
+                  TOTAL_VISITS_FR=$(fetch_value "$VISITS_FR_QUERY" "$FROM_LAUNCH")
+                  TOTAL_VISIT_RATE=$(fetch_value "$VISIT_RATE_QUERY" "$FROM_LAUNCH")
+                  TOTAL_ESRF=$(fetch_value "$ESRF_EMAIL_QUERY" "$FROM_LAUNCH")
+                  TOTAL_STATUS_HIT=$(fetch_value "$STATUS_HIT_QUERY" "$FROM_LAUNCH")
+
+                  YESTERDAY_VISITS_EN=$(fetch_value "$VISITS_EN_QUERY" "$DT_YESTERDAY")
+                  YESTERDAY_VISITS_FR=$(fetch_value "$VISITS_FR_QUERY" "$DT_YESTERDAY")
+                  YESTERDAY_VISIT_RATE=$(fetch_value "$VISIT_RATE_QUERY" "$DT_YESTERDAY")
+                  YESTERDAY_ESRF=$(fetch_value "$ESRF_EMAIL_QUERY" "$DT_YESTERDAY")
+                  YESTERDAY_STATUS_HIT=$(fetch_value "$STATUS_HIT_QUERY" "$DT_YESTERDAY")
+
+                  if [ "$TOTAL_VISIT_RATE" != null ]; then TOTAL_VISIT_RATE=${TOTAL_VISIT_RATE%%.*}; fi
+                  if [ "$YESTERDAY_VISIT_RATE" != null ]; then YESTERDAY_VISIT_RATE=${YESTERDAY_VISIT_RATE%%.*}; fi
+
+                  {
+                    printf '%s\n' 'visits_en,visits_fr,visits_per_hour,statuses_found,esrf_emails_sent'
+                    printf '%s\n' "$YESTERDAY_VISITS_EN,$YESTERDAY_VISITS_FR,$YESTERDAY_VISIT_RATE,$YESTERDAY_STATUS_HIT,$YESTERDAY_ESRF"
+                    printf '%s\n' "$TOTAL_VISITS_EN,$TOTAL_VISITS_FR,$TOTAL_VISIT_RATE,$TOTAL_STATUS_HIT,$TOTAL_ESRF"
+                  } > "/metrics/dt_metrics_${YESTERDAY}.csv"
+              volumeMounts:
+                - name: metrics-files
+                  mountPath: /metrics
+          containers:
+            - name: report-dynatrace-csv
+              image: m365pnp/powershell
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 1Gi
+              command: ['pwsh', '-NoLogo', '-NonInteractive', '-Command']
+              args:
+                - |
+                  $ErrorActionPreference = 'Stop'
+                  $file = Get-ChildItem -LiteralPath '/metrics' -File -Filter 'dt_metrics_*.csv' | Select-Object -First 1
+                  if (-not $file) {
+                    throw 'No Dynatrace metrics CSV was created.'
+                  }
+
+                  $certificatePath = Join-Path ([IO.Path]::GetTempPath()) 'client-cert.pfx'
+                  [IO.File]::WriteAllBytes($certificatePath, [Convert]::FromBase64String($env:SP_EXPORT_CLIENT_CERT_PFX))
+
+                  try {
+                    Connect-PnPOnline `
+                      -Url 'https://014gc.sharepoint.com/sites/PassportPoC' `
+                      -ClientId $env:SP_EXPORT_USER `
+                      -Tenant '9ed55846-8a81-4246-acd8-b1a01abfc0d1' `
+                      -CertificatePath $certificatePath `
+                      -CertificatePassword (ConvertTo-SecureString -String $env:SP_EXPORT_CLIENT_CERT_PFX_PASSWORD -AsPlainText -Force)
+
+                    Add-PnPFile -Path $file.FullName -Folder 'Shared Documents/Audits/dynatrace_metrics'
+                  }
+                  finally {
+                    Remove-Item -Path $certificatePath -Force -ErrorAction SilentlyContinue
+                  }
+              env:
+                - name: SP_EXPORT_CLIENT_CERT_PFX
+                  valueFrom:
+                    secretKeyRef:
+                      name: passport-status-sharepoint-prod
+                      key: SP_EXPORT_CLIENT_CERT_PFX
+                - name: SP_EXPORT_CLIENT_CERT_PFX_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: passport-status-sharepoint-prod
+                      key: SP_EXPORT_CLIENT_CERT_PFX_PASSWORD
+                - name: SP_EXPORT_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: passport-status-sharepoint-prod
+                      key: SP_EXPORT_USER
+              volumeMounts:
+                - name: metrics-files
+                  mountPath: /metrics
+          volumes:
+            - name: metrics-files
+              emptyDir: {}
