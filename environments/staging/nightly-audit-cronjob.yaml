@@ -1,0 +1,159 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nightly-audit
+  namespace: passport-status
+spec:
+  schedule: '0 5 * * *'
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 3600
+      ttlSecondsAfterFinished: 604800
+      template:
+        spec:
+          restartPolicy: Never
+          initContainers:
+            - name: export-audit-csv
+              image: docker.io/postgres:17
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 1Gi
+              env:
+                - name: PGHOST
+                  value: passport-status-db-cn-pooler-rw-staging
+                - name: PGPORT
+                  value: '5432'
+                - name: PGDATABASE
+                  value: passport-status
+                - name: PGUSER
+                  value: passport-status
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: passport-status-db-cn-staging
+                      key: password
+              command: ['/bin/bash', '-c']
+              args:
+                - |
+                  set -euo pipefail
+                  yesterday=$(date -u -d 'yesterday' '+%Y-%m-%d')
+
+                  psql --no-psqlrc --set ON_ERROR_STOP=1 --command "COPY (
+                    SELECT
+                      event_log.id, actor, event_log.description,
+                      details::json->'dateOfBirth' AS details_dateOfBirth,
+                      details::json->'email' AS details_email,
+                      details::json->'givenName' AS details_giveName,
+                      details::json->'surname' AS details_surname,
+                      details::json->'reason' AS details_reason,
+                      details::json->'timestamp' AS details_timestamp,
+                      details::json->'entity'->'id' AS details_entity_id,
+                      details::json->'entity'->'createdBy' AS details_entity_createdBy,
+                      details::json->'entity'->'createdDate' AS details_entity_createdDate,
+                      details::json->'entity'->'lastModifiedBy' AS details_entity_id_lastModifiedBy,
+                      details::json->'entity'->'applicationRegisterSid' AS details_entity_applicationRegisterSid,
+                      details::json->'entity'->'dateOfBirth' AS details_entity_dateOfBirth,
+                      details::json->'entity'->'email' AS details_entity_email,
+                      details::json->'entity'->'fileNumber' AS details_entity_fileNumber,
+                      details::json->'entity'->'givenName' AS details_entity_givenName,
+                      details::json->'entity'->'manifestNumber' AS details_entity_manifestNumber,
+                      entity_status_code.code AS details_entity_statusCode,
+                      details::json->'entity'->'statusDate' AS details_entity_statusDate,
+                      details::json->'entity'->'version' AS details_entity_version,
+                      event_type, source, event_log.created_by, event_log.created_date,
+                      event_log.last_modified_by, event_log.last_modified_date,
+                      details::json->'passportStatus'->'id' AS details_status_id,
+                      details::json->'passportStatus'->'applicationRegisterSid' AS details_status_application_register_sid,
+                      passport_status_code.code AS details_status_code,
+                      passport_source_code.code AS details_status_source
+                    FROM event_log
+                    LEFT JOIN status_code entity_status_code
+                      ON event_log.details::json->'entity'->>'statusCodeId' = entity_status_code.id
+                    LEFT JOIN status_code AS passport_status_code
+                      ON event_log.details::json->'passportStatus'->>'statusCodeId' = passport_status_code.id
+                    LEFT JOIN source_code AS passport_source_code
+                      ON event_log.details::json->'passportStatus'->>'sourceCodeId' = passport_source_code.id
+                    WHERE DATE(event_log.created_date) = (current_timestamp AT TIME ZONE 'UTC')::date - 1
+                      AND event_type NOT IN ('CREATE_STATUS_SUCCESS', 'CREATE_STATUS_CONFLICT')
+                    ORDER BY event_log.created_date ASC
+                  ) TO STDOUT WITH CSV HEADER" > "/audits/event_log_${yesterday}.csv"
+
+                  psql --no-psqlrc --set ON_ERROR_STOP=1 --command "COPY (
+                    SELECT
+                      event_log.id, actor, event_log.description,
+                      details::json->'reason' AS details_reason,
+                      details::json->'timestamp' AS details_timestamp,
+                      details::json->'entity'->'id' AS details_entity_id,
+                      details::json->'entity'->'createdBy' AS details_entity_createdBy,
+                      details::json->'entity'->'createdDate' AS details_entity_createdDate,
+                      details::json->'entity'->'lastModifiedBy' AS details_entity_id_lastModifiedBy,
+                      details::json->'entity'->'applicationRegisterSid' AS details_entity_applicationRegisterSid,
+                      details::json->'entity'->'dateOfBirth' AS details_entity_dateOfBirth,
+                      details::json->'entity'->'email' AS details_entity_email,
+                      details::json->'entity'->'fileNumber' AS details_entity_fileNumber,
+                      details::json->'entity'->'givenName' AS details_entity_givenName,
+                      details::json->'entity'->'manifestNumber' AS details_entity_manifestNumber,
+                      entity_status_code.code AS details_entity_statusCode,
+                      details::json->'entity'->'statusDate' AS details_entity_statusDate,
+                      details::json->'entity'->'version' AS details_entity_version,
+                      event_type, source, event_log.created_by, event_log.created_date,
+                      event_log.last_modified_by, event_log.last_modified_date,
+                      details::json->'passportStatus'->'id' AS details_status_id,
+                      details::json->'passportStatus'->'applicationRegisterSid' AS details_status_application_register_sid,
+                      passport_status_code.code AS details_status_code,
+                      passport_source_code.code AS details_status_source
+                    FROM event_log
+                    LEFT JOIN status_code entity_status_code
+                      ON event_log.details::json->'entity'->>'statusCodeId' = entity_status_code.id
+                    LEFT JOIN status_code AS passport_status_code
+                      ON event_log.details::json->'passportStatus'->>'statusCodeId' = passport_status_code.id
+                    LEFT JOIN source_code AS passport_source_code
+                      ON event_log.details::json->'passportStatus'->>'sourceCodeId' = passport_source_code.id
+                    WHERE DATE(event_log.created_date) = (current_timestamp AT TIME ZONE 'UTC')::date - 1
+                      AND event_type NOT IN ('CREATE_STATUS_SUCCESS', 'CREATE_STATUS_CONFLICT')
+                    ORDER BY event_log.created_date ASC
+                  ) TO STDOUT WITH CSV HEADER" > "/audits/event_log_scrubbed_${yesterday}.csv"
+              volumeMounts:
+                - name: audit-files
+                  mountPath: /audits
+          containers:
+            - name: upload-audit-csv
+              image: m365pnp/powershell
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 1Gi
+              command: ['pwsh', '-NoLogo', '-NonInteractive', '-Command']
+              args:
+                - |
+                  $ErrorActionPreference = 'Stop'
+                  $files = Get-ChildItem -LiteralPath '/audits' -File -Filter 'event_log*.csv' | Sort-Object Name
+                  if (-not $files) {
+                    throw 'No audit CSV files were created.'
+                  }
+
+                  $summaries = foreach ($file in $files) {
+                    $recordCount = (Import-Csv -LiteralPath $file.FullName | Measure-Object).Count
+                    [PSCustomObject]@{
+                      name = $file.Name
+                      location = $file.FullName
+                      size = $file.Length
+                      recordCount = $recordCount
+                    }
+                  }
+                  $output = [PSCustomObject]@{
+                    message = 'Staging only: CSV files are not uploaded to SharePoint.'
+                    files = @($summaries)
+                  }
+                  $output | ConvertTo-Json -Depth 4
+              volumeMounts:
+                - name: audit-files
+                  mountPath: /audits
+          volumes:
+            - name: audit-files
+              emptyDir: {}

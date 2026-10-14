@@ -32,6 +32,9 @@ resources:
   - ./passport-status-api-ingresses.yaml
   - ./passport-status-frontend-hpas.yaml
   - ./passport-status-frontend-ingresses.yaml
+  - ./nightly-dynatrace-cronjob.yaml
+  - ./nightly-audit-cronjob.yaml
+  - ./two-year-retention-cronjob.yaml
 secretGenerator:
   - name: passport-status-api
     envs:
